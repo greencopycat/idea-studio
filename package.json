@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@metamodules/postgres": "^1.2.1",
     "deploy-node-app": "^1.4.3",
     "dotenv": "^8.0.0",
     "express-fileupload": "^1.3.1",
@@ -33,8 +32,7 @@
     "build": "react-scripts build",
     "deploy": "deploy-node-app",
     "test": "react-scripts test",
-    "eject-www": "react-scripts eject",
-    "psql": "export $(cat .env | xargs) && PGPASSWORD=${POSTGRES_PASSWORD} psql -h ${POSTGRES_SERVICE_HOST} -p ${POSTGRES_SERVICE_PORT} -U ${POSTGRES_USER} ${POSTGRES_DB}"
+    "eject-www": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
