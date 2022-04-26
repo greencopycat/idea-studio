@@ -6,7 +6,6 @@ import Field from './../components/atoms/Field'
 import Wrapper from './../components/Layout/Wrapper'
 import Notifier from './../components/atoms/Notifier'
 import Link from './../components/atoms/Link'
-import file from './../documents/populate.xlsx'
 
 
 import MS from './../services/microservices'
