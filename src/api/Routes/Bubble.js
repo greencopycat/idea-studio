@@ -2,7 +2,7 @@ const express = require('express')
 const Route = express.Router()
 const Bubbles = require('./../Schemas/Bubbles')
 const { CODE_FAILED, CODE_SUCCESS, MSG_DBFAILED, MSG_DBSUCCESS, MSG_DBDUP, MSG_GET_SUCCESS, MSG_NOT_FOUND } = require('./../Constents/Text')
-const FIELDS = ['idea', 'tags', 'attachments', 'url', 'description', 'note', 'author']
+const FIELDS = ['id', 'idea', 'tags', 'attachments', 'url', 'description', 'note', 'author']
 const filereader = require('xlsx')
 const fs = require('fs')
 
@@ -12,6 +12,10 @@ const setDbFields = (des, tar) => {
     })
     return des
 }
+
+Route.get('/template', (req, res, next) => {
+    return res.download(`${__dirname}/../Docs/populate.xlsx`)
+})
 
 Route.post('/populate', (req, res, next) => {
     // no attachments here, need to upload individually from UI
@@ -35,15 +39,20 @@ Route.post('/populate', (req, res, next) => {
             })
         }
         Bubbles.create(arr, (err, result) => {
-            if (err) {
-                const errorItem = [{keyValues: err.keyValue, name: err.name, message: err.message}]
-                if (err.code === 11000) {
-                    return res.status(CODE_FAILED).send({status: CODE_FAILED, message: MSG_DBDUP, error: errorItem})
+            try {
+                if (err) {
+                    const errorItem = [{keyValues: err.keyValue, name: err.name, message: err.message, errors: err}]
+                    if (err.code === 11000) {
+                        const respObj = {status: CODE_FAILED, message: MSG_DBDUP}
+                        return res.status(CODE_FAILED).send(respObj)
+                    } else {
+                        return res.status(CODE_FAILED).send({status: CODE_FAILED, message: MSG_DBFAILED, error: errorItem})
+                    }
                 } else {
-                    return res.status(CODE_FAILED).send({status: CODE_FAILED, message: MSG_DBFAILED, error: errorItem})
+                    return res.status(CODE_SUCCESS).send({status: CODE_SUCCESS, message: MSG_DBSUCCESS})
                 }
-            } else {
-                return res.status(CODE_SUCCESS).send({status: CODE_SUCCESS, message: MSG_DBSUCCESS})
+            } catch (ex) {
+                console.error('[exception] -> ', { status: '502', message: 'something wrong', exception: ex})
             }
         })
     } else {
@@ -102,12 +111,12 @@ Route.post('/add', (req, res, next) => {
 
 Route.get('/setfree', (req, res, next) => {
     const query = {};
-    const sortby = {}
+    let sortby = ''
     if (req.query) {
         if (req.query.sort) {
-            sortby[`tags`] = 1
+            sortby = req.query.sort
         }
-        Object.keys(req.query).forEach((q) => FIELDS.includes(q) && (query[q] = req.query[q]))
+        Object.keys(req.query).forEach((q) => FIELDS.includes(q) && (query[q] = { '$in' : req.query[q].split(',')}))
     }
     Bubbles.find(query, '-_id -__v')
     .sort(sortby)
@@ -116,6 +125,38 @@ Route.get('/setfree', (req, res, next) => {
             return res.status(CODE_FAILED).send({status: CODE_FAILED, message: MSG_DBFAILED})
         } else {
             return res.status(CODE_SUCCESS).send({status: CODE_SUCCESS, message: MSG_GET_SUCCESS, body: result})
+        }
+    })
+})
+
+Route.get('/tags', (req, res, next) => {
+    const query = {}
+    if (req.query) {
+        Object.keys(req.query).forEach((q) => {
+            FIELDS.includes(q) && (query[q] = req.query[q])
+        })
+    }
+    Bubbles.aggregate([
+        {$match: query},
+        {$unwind: '$tags'},
+        {$group: 
+            {
+                "_id": '$tags',
+                "count": { $sum: 1}, 
+                "ideas": { 
+                    $push: {
+                        "id": "$id",
+                        "idea": '$idea'
+                    }, 
+                }
+            }
+        },
+        {$sort: {'tags': 1}},
+    ], (err, result) => {
+        if (err) {
+            return res.status(400).send({status: 400, message: 'Failed.', error: err})
+        } else {
+            return res.status(200).send({status: 200, message: 'Success.', body: result })
         }
     })
 })

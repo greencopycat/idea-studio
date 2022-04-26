@@ -1,0 +1,5 @@
+.notifier {
+    padding: 2rem;
+    border: thin solid currentColor;
+    border-radius: .5rem;
+}

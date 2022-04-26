@@ -1,6 +1,8 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 const Text = (props) => {
+    const elem = props.elem
     /* 
      * Types -
      *  label
@@ -15,9 +17,25 @@ const Text = (props) => {
      *  heading-category
      *  list
      */
+    let MyText = <div />
+    switch(elem) {
+        case 'label':
+            MyText = <label>{props.value}</label>
+            break
+        default: 
+            break
+    }
 
     // set styles here
     return (
-        <>Text with style</>
+        <>{MyText}</>
     )
 }
+
+Text.propTypes = {
+    elem: PropTypes.oneOf(['label', 'heading', 'error', 'default', 'description', 'eyebrow']),
+    level: PropTypes.number,
+    value: PropTypes.string
+}
+
+export default Text

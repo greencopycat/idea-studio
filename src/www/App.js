@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import Populate from './views/Populate'
 import Store from './Context/Store'
+
+import Populate from './views/Populate'
+import Main from './views/Main'
 
 class App extends Component {
 
@@ -16,7 +18,7 @@ class App extends Component {
     return (
       <div className="App">
         <Store.Provider value={store}>
-          <Populate />
+          <Main />
         </Store.Provider>
       </div>
     )
