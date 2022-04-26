@@ -1,0 +1,14 @@
+.wrapper {
+    font-size: 1.2rem;
+    width: 100%;
+    overflow-x: auto;
+}
+.wrapper > table {
+    border-collapse: collapse;
+}
+.wrapper td, .wrapper th {
+    border: thin solid #acbeda;
+    padding: .7rem;
+    vertical-align: top;
+    width: auto;
+}

@@ -12,7 +12,7 @@ import file from './../documents/populate.xlsx'
 import MS from './../services/microservices'
 import { ENDPOINT } from './../constant/constant'
 
-const HOSTNAME = 'http://localhost:4000'
+const DBHOSTNAME = 'http://localhost:4000'
 
 const Populate = (props) => {
     const store = useContext(Store)
@@ -44,7 +44,7 @@ const Populate = (props) => {
                                     const formdata = new FormData()
                                     formdata.append('doc', $file.files.item(0))
 
-                                    MS.post(HOSTNAME + ENDPOINT.IDEA_POPULATE, formdata)
+                                    MS.post(DBHOSTNAME + ENDPOINT.IDEA_POPULATE, formdata)
                                         .then((resp) => {
                                             setMessage(resp)
                                         })
@@ -60,7 +60,7 @@ const Populate = (props) => {
                 </Row>
                 { message ? <Notifier {...message} /> : null }
                 <Row>
-                    <Link url={`http://localhost:4000/bubble/template`} text={`Download template`} download={true} />
+                    <Link url={`${DBHOSTNAME}/bubble/template`} text={`Download template`} download={true} />
                 </Row>
             </Panel>
         </Wrapper>
