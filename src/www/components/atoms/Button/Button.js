@@ -9,11 +9,12 @@ const Button = (props) => {
         onClick: props.onClick
     }
     return (
-        <button className={classes.join(' ')} type={props.buttonType || 'button'} {...events} >{props.text}</button>
+        <button className={classes.join(' ')} type={props.buttonType || 'button'} {...events} disabled={props.disabled}>{props.text}</button>
     )
 }
 
 Button.propTypes = {
+    disabled: PropTypes.bool,
     type: PropTypes.oneOf(['button', 'submit', 'reset']),
     onclick: PropTypes.func,
 }

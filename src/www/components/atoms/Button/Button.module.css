@@ -10,8 +10,13 @@
     min-width: 15rem;
 }
 
-.wrapper:hover {
+.wrapper:not([disabled]):hover {
     transition: color 500ms linear 10ms, background-color 500ms linear 10ms;
     background-color: var(--white);
     color: var(--menu-bg);
+}
+
+.wrapper[disabled] {
+    background-color: var(--gray);
+    border-color: var(--gray);
 }

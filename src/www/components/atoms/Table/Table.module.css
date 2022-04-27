@@ -13,12 +13,17 @@
 }
 .wrapper td, .wrapper th {
     border: thin solid #acbeda;
-    padding: .7rem;
     vertical-align: top;
     width: 15rem;
     max-width: 15rem;
     min-width: 15rem;
     height: 100%;
+}
+.wrapper td:not(:global([class^=pad-])) {
+    padding: .7rem;
+}
+.wrapper td:global(.pad-0) input {
+    border: 0;
 }
 
 .wrapper td input {

@@ -13,10 +13,10 @@ import Text from './../Text'
 import styles from './Field.module.css'
 
 const propForFields = {
-    BUTTON: ['type', 'label', 'callbacks', 'text', 'callbacks'],
+    BUTTON: ['type', 'label', 'callbacks', 'text', 'callbacks', 'disabled', 'classes'],
     CHECKBOX: [],
     DROPDOWN: ['label'],
-    INPUTBOX: ['type', 'text', 'label', 'placeholder', 'callbacks', 'id', 'name', 'disabled', 'pattern', 'accept'],
+    INPUTBOX: ['type', 'text', 'label', 'placeholder', 'callbacks', 'id', 'name', 'disabled', 'pattern', 'accept', 'classes'],
     RADIOBOX: []
 }
 
@@ -31,7 +31,7 @@ const getProps = (des, propNames, props) => {
                 des[ea] = props[ea]
             }
         }
-    })
+    }) 
     return des
 }
 
@@ -82,6 +82,7 @@ const Field = (props) => {
         }
         fieldProps = getProps({}, propForFields[elem], props)
     }
+
     return (
         <div className={classes.join(' ')}>
             {props.label ? <Text elem={`label`} value={props.label} /> : null}

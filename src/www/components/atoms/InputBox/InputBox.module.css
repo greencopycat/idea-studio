@@ -19,3 +19,7 @@ input[type=file].wrapper:hover::file-selector-button {
     background-color: var(--white);
     color: var(--menu-bg);
 }
+
+.wrapper.pad-0 {
+    padding: 0rem;
+}

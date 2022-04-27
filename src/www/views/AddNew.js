@@ -20,8 +20,8 @@ const AddNew = (props) => {
         const row = {}
         const newArr = arr
         const len = arr.length
-        FIELDS.forEach((key) => {
-            row[key] = <Field elem={`inputbox`} type={`text`} name={key + "_row_" + (len + 1)} />
+        FIELDS.forEach((f) => {
+            row[f.name] = <Field elem={`inputbox`} type={`text`} name={f.name + "_row_" + (len + 1)} />
         })
         newArr.push(row)
         setArray(newArr)
@@ -45,7 +45,7 @@ const AddNew = (props) => {
             <Panel>
                 <Text elem={`heading`} level={1} value={`Add new items`} />
                 <Text elem={`default`} classes={`mar-b25`} value={`Make your idea counts`} />
-                <Table data={{ideas: arr}} />
+                <Table data={{ideas: arr}} page={`addnew`} />
                 <Row>
                     <Field elem={`button`} text={`Add row`} type={`submit`}
                         callbacks={{
@@ -60,6 +60,7 @@ const AddNew = (props) => {
                                 removeRow(arr)
                             })
                         }}
+                        disabled={(arr.length < 2)}
                     />
                     <Field elem={`button`} text={`Submit`} type={`submit`}
                         callbacks={{
@@ -67,6 +68,7 @@ const AddNew = (props) => {
                                 // MS.post()
                             })
                         }}
+                        disabled={true}
                     />
                 </Row>
             </Panel>
