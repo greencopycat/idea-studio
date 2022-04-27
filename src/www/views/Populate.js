@@ -16,26 +16,22 @@ const DBHOSTNAME = 'http://localhost:4000'
 
 const Populate = (props) => {
     const store = useContext(Store)
-    const [error, setError] = useReducer((state, value) => value, false)
     const [message, setMessage] = useReducer((state, value) => {
-        return {
-            message: value.message || 'Error. Please check and try again.'
-        }
+        return value.message ? {
+            isError: value.status !== 200,
+            message: value.message 
+        } : undefined
     }, null)
     // use cms[lang] to toggle between different languages
     console.log('[lang] -> lang -> ', store.lang, store.theme)
     const resetMessage = () => {
-        setMessage(null)
+        setMessage({status: undefined, message: undefined})
     }
     return (
         <Wrapper>
             <Panel>
-                <Row>
-                    <Text display={`block`} elem={`heading`} level={1} value={`Populate DB from file`} />
-                </Row>
-                <Row classes={`mar-b25`}>
-                    <Text display={`block`} elem={`description`} value={`Please download and use template file to populate DB.`} />
-                </Row>
+                <Text elem={`heading`} level={1} value={`Populate DB from file`} />
+                <Text classes={`mar-b25`} elem={`default`} value={`Please download and use template file to populate DB.`} />
                 <Row classes={`mar-b25`}>
                     <div>
                         <Text elem={`default`} value={`Template: `} display={`inline`} />
@@ -50,10 +46,16 @@ const Populate = (props) => {
                             type={`file`}
                             id={`file`}
                             accept={`.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .numbers`}
+                            callbacks={{
+                                onClick: ((evt) => {
+                                    resetMessage(null)
+                                })
+                            }}
                         />
                         <Field display={`inline-block`} elem={'button'} text={`Submit`} type={`submit`} 
                             callbacks={{
                                 onClick: ((evt) => {
+                                    setMessage({status: undefined, message: undefined})
                                     const $file = document.querySelector('#file')
                                     if ($file.files && $file.files.length) {
                                         const formdata = new FormData()
@@ -61,15 +63,12 @@ const Populate = (props) => {
 
                                         MS.post(DBHOSTNAME + ENDPOINT.IDEA_POPULATE, formdata)
                                             .then((resp) => {
-                                                setError(false)
                                                 setMessage(resp)
                                             })
                                             .catch((err) => {
-                                                setError(true)
                                                 setMessage(err)
                                             })
                                     } else {
-                                        setError(true)
                                         setMessage({status: 400, message: 'Please select a file.'})
                                     }
                                 })
@@ -78,7 +77,7 @@ const Populate = (props) => {
                     </div>
                 </Row>
                 { message ? 
-                    <Row classes={`${error ? 'error' : ''}`}>
+                    <Row classes={`${message.isError ? 'error' : ''}`}>
                         <Notifier {...message} />
                     </Row> : null 
                 }

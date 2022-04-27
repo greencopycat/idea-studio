@@ -69,3 +69,4 @@ Table.propTypes = {
 }
 
 export default Table
+export { fields as FIELDS }

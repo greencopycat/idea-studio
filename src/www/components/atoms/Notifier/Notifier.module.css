@@ -1,5 +1,30 @@
 .notifier {
-    padding: 2rem;
+    padding: 0rem 2rem;
     border: thin solid currentColor;
     border-radius: .5rem;
+    animation: loadin 500ms linear 10ms forwards;
+    transition: padding 500ms linear 10ms, opacity 500ms ease-in-out 20ms;
+    /* transition: height 300ms linear 10ms; */
+    overflow: hidden;
+    height: 0;
+    opacity: 0;
+}
+
+@keyframes loadin {
+    0% {
+        height: 0rem;
+        padding: 0rem 2rem;
+        opacity: 0;
+    }
+    99% {
+        height: 5.5rem;
+        padding: 2rem 2rem;
+        opacity: 1;
+    }
+    100% {
+        height: auto;
+        padding: 2rem;
+        opacity: 1;
+    }
+    
 }

@@ -28,9 +28,8 @@ const View = (props) => {
     return (
         <Wrapper>
             <Panel>
-                <Row classes={`mar-b25`}>
-                    <Text elem={`heading`} level={1} value={`View records`} />
-                </Row>
+                <Text elem={`heading`} level={1} value={`View ideas`} />
+                <Text classes={`mar-b25`} elem={`default`} value={`What's in your mind?`} />
                 <Row>
                     <Table data={{ideas: ideas}} />
                 </Row>

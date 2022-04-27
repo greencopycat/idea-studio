@@ -16,6 +16,7 @@ class Main extends React.Component {
             <>
                 <Router>
                     <div className={menuClasses.join(' ')}>
+                        <NavLink className={`font-regular`} to={`/`}>Home</NavLink>
                         <NavLink className={`font-regular`} to={`/view`}>View</NavLink>
                         <NavLink className={`font-regular`} to={`/addnew`}>New</NavLink>
                         <NavLink className={`font-regular`} to={`/populate`}>Bulk</NavLink>

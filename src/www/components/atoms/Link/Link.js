@@ -1,9 +1,12 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import styles from './Link.module.css'
+
 const Link = (props) => {
+    const classes = ['font-regular', styles.wrapper]
     return (
-        <a className={`font-regular`} href={props.url} download={props.download} target={`_blank`}>{props.text}</a>
+        <a className={classes.join(' ')} href={props.url} download={props.download} target={`_blank`}>{props.text}</a>
     )
 }
 

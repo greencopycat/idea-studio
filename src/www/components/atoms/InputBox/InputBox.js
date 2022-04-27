@@ -6,10 +6,13 @@ import styles from './InputBox.module.css'
 const InputBox = (props) => {
     // value, pattern, type, placeholder
     const events = {
-        onChange: props.onChange
+        onChange: props.onChange,
+        onClick: props.onClick
     }
 
     const classes = ['font-regular', styles.wrapper].join(' ')
+
+    // if (props.call)
     return (
         <>
             <input 
@@ -32,9 +35,11 @@ InputBox.propTypes = {
     accept: PropTypes.string,
     disabled: PropTypes.bool,
     download: PropTypes.bool,
-    events: PropTypes.objectOf(PropTypes.func),
+    // events: PropTypes.objectOf(PropTypes.func),
     id: PropTypes.string,
     name: PropTypes.string,
+    onChange: PropTypes.func,
+    onClick: PropTypes.func,
     pattern: PropTypes.string,
     placeholder: PropTypes.string,
     type: PropTypes.string
