@@ -1,6 +1,7 @@
 .wrapper {
     padding: 0;
 }
+
 input[type=file].wrapper::file-selector-button {
     border: thin solid var(--menu-bg);
     border-radius: .5rem;
@@ -12,6 +13,7 @@ input[type=file].wrapper::file-selector-button {
     color: var(--white);
     min-width: 15rem;
 }
+
 input[type=file].wrapper:hover::file-selector-button {
     transition: color 500ms linear 10ms, background-color 500ms linear 10ms;
     background-color: var(--white);

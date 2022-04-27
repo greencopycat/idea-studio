@@ -51,7 +51,10 @@ const Text = (props) => {
         case 'default':
             classes.push('font-regular')
             MyText = <div className={classes.join(' ')}>{props.value}</div>
+            break
         default: 
+        classes.push('font-regular')
+        MyText = <div className={classes.join(' ')}>{props.value}</div>
             break
     }
 

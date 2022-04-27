@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Store from './Context/Store'
 
-import Populate from './views/Populate'
 import Main from './views/Main'
 
 class App extends Component {

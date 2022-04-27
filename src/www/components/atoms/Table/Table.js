@@ -35,7 +35,7 @@ const Table = (props) => {
                 let cellData = []
                 Object.keys(row).forEach((key, i) => {
                     let value = ''
-                    if(typeof row[key] === 'object') {
+                    if(!row[key].$$typeof && typeof row[key] === 'object') {
                         value = row[key].join(', ')
                     } else {
                         value = row[key]
@@ -49,9 +49,9 @@ const Table = (props) => {
         }
     }, [tableData])
 
-    const classes = [styles.wrapper].join(' ')
+    const classes = [styles.wrapper, 'font-regular']
     return (
-        <div className={classes}>
+        <div className={classes.join(' ')}>
             <table>
                 <thead>
                     {tableHeaders.current}

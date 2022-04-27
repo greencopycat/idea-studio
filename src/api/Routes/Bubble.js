@@ -1,7 +1,7 @@
 const express = require('express')
 const Route = express.Router()
 const Bubbles = require('./../Schemas/Bubbles')
-const { CODE_FAILED, CODE_SUCCESS, MSG_DBFAILED, MSG_DBSUCCESS, MSG_DBDUP, MSG_GET_SUCCESS, MSG_NOT_FOUND } = require('./../Constents/Text')
+const { CODE_FAILED, CODE_SUCCESS, MSG_DBFAILED, MSG_DBSUCCESS, MSG_DBDUP, MSG_GET_SUCCESS, MSG_NOT_FOUND } = require('./../Constants/Text')
 const FIELDS = ['id', 'idea', 'tags', 'attachments', 'url', 'description', 'note', 'author']
 const filereader = require('xlsx')
 const fs = require('fs')
@@ -14,10 +14,12 @@ const setDbFields = (des, tar) => {
 }
 
 Route.get('/template', (req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*')
     return res.download(`${__dirname}/../Docs/populate.xlsx`)
 })
 
 Route.post('/populate', (req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*')
     // no attachments here, need to upload individually from UI
     // find Bubble by author, by tags
     // author using different table to support authentication/ permission
@@ -61,6 +63,7 @@ Route.post('/populate', (req, res, next) => {
 })
 
 Route.post('/add', (req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*')
     if (req.body) {
         const data = setDbFields({}, req.body)
         req.files && Object.keys(req.files).forEach((field) => {
@@ -110,6 +113,7 @@ Route.post('/add', (req, res, next) => {
 })
 
 Route.get('/setfree', (req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*')
     const query = {};
     let sortby = ''
     if (req.query) {
@@ -130,6 +134,7 @@ Route.get('/setfree', (req, res, next) => {
 })
 
 Route.get('/tags', (req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*')
     const query = {}
     if (req.query) {
         Object.keys(req.query).forEach((q) => {

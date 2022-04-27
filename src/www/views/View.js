@@ -29,7 +29,7 @@ const View = (props) => {
         <Wrapper>
             <Panel>
                 <Text elem={`heading`} level={1} value={`View ideas`} />
-                <Text classes={`mar-b25`} elem={`default`} value={`What's in your mind?`} />
+                <Text classes={`mar-b25`} elem={`default`} value={`What's on your mind?`} />
                 <Row>
                     <Table data={{ideas: ideas}} />
                 </Row>

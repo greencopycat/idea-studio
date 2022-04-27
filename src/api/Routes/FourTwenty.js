@@ -1,6 +1,6 @@
 const express = require('express')
 const Router = express.Router()
-const { CODE_NOT_FOUND, MSG_NOT_FOUND } = require('./../Constents/Text')
+const { CODE_NOT_FOUND, MSG_NOT_FOUND } = require('./../Constants/Text')
 
 
 Router.all('*', (req, res, next) => {

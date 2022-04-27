@@ -47,19 +47,19 @@
 }
 
 .font-sm {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 .font-regular {
-    font-size: 1.4rem;
-}
-
-.font-md {
     font-size: 1.6rem;
 }
 
-.font-lg {
+.font-md {
     font-size: 1.8rem;
+}
+
+.font-lg {
+    font-size: 2rem;
 }
 
 .mar-t5 {
@@ -108,3 +108,5 @@
 .success {
     color: var(--blue);
 }
+
+/* functional */

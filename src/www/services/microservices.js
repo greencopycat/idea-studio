@@ -15,7 +15,7 @@ const api = async (endpoint, query) => {
         })
 }
 const get = (endpoint, query, callback) => {
-    return api(endpoint, { method: 'GET'})
+    return api(endpoint, { method: 'GET', mode: 'cors'})
 }
 const post = async ( endpoint, query, callback) => {
     if(!query) {
