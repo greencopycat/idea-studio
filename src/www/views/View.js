@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import MS from './../services/microservices'
 import { ENDPOINT } from '../constant/constant'
 
+import Text from './../components/atoms/Text'
 import Wrapper from './../components/Layout/Wrapper'
 import Panel from './../components/Layout/Panel'
 import Row from './../components/Layout/Row'
@@ -27,8 +28,8 @@ const View = (props) => {
     return (
         <Wrapper>
             <Panel>
-                <Row>
-                    View
+                <Row classes={`mar-b25`}>
+                    <Text elem={`heading`} level={1} value={`View records`} />
                 </Row>
                 <Row>
                     <Table data={{ideas: ideas}} />

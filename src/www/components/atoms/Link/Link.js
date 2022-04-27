@@ -1,11 +1,9 @@
 import React from 'react'
-import { Link as ALink} from 'react-router-dom'
 import PropTypes from 'prop-types'
 
 const Link = (props) => {
-    console.log('[link] -> ', props.url)
     return (
-        <a href={props.url} download={props.download} target={`_blank`}>{props.text}</a>
+        <a className={`font-regular`} href={props.url} download={props.download} target={`_blank`}>{props.text}</a>
     )
 }
 

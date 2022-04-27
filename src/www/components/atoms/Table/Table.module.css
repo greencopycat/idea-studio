@@ -2,13 +2,19 @@
     font-size: 1.2rem;
     width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
+    height: auto;
 }
 .wrapper > table {
     border-collapse: collapse;
+    height: auto;
 }
 .wrapper td, .wrapper th {
     border: thin solid #acbeda;
     padding: .7rem;
     vertical-align: top;
-    width: auto;
+    width: 15rem;
+    max-width: 15rem;
+    min-width: 15rem;
+    height: auto;
 }

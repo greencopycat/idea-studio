@@ -1,5 +1,3 @@
-import React from 'react'
-
 const api = async (endpoint, query) => {
     return await fetch(endpoint, query)
         .then((data) => {

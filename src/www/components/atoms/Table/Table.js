@@ -1,7 +1,7 @@
 import React, {useEffect, useReducer, useRef, useState} from 'react'
 import PropTypes from 'prop-types'
 
-import * as styles from './Table.module.css'
+import styles from './Table.module.css'
 
 const fields = ['id', 'author', 'idea', 'tags', 'description', 'attachments', 'url', 'note', 'created' ]
 
@@ -12,7 +12,6 @@ const Table = (props) => {
     const [update, forceUpdate] = useState(false)
     useEffect(() => {
         const ideas = props.data.ideas
-        // console.log('[props] -> props -> ', props.data)
         let renderData = []
         ideas.forEach((id) => {
             const rowData = {}
@@ -28,7 +27,7 @@ const Table = (props) => {
         if(tableData.length) {
             let headRow = []
             fields.forEach((f, i) => {
-                headRow.push(<th key={`${f}_th_${i}`}>{f}</th>)
+                headRow.push(<th key={`${f}_th_${i}`}>{f.toUpperCase()}</th>)
             })
             tableHeaders.current = (<tr>{headRow}</tr>)
             let rowData = []

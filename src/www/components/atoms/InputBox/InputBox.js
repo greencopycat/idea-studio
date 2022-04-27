@@ -1,16 +1,20 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import styles from './InputBox.module.css'
+
 const InputBox = (props) => {
     // value, pattern, type, placeholder
     const events = {
         onChange: props.onChange
     }
-    console.log('[accept] -> ', props.accept)
+
+    const classes = ['font-regular', styles.wrapper].join(' ')
     return (
         <>
             <input 
                 accept={props.accept}
+                className={classes}
                 disabled={props.disabled}
                 download={props.download}
                 {...events} 

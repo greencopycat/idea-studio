@@ -1,6 +1,6 @@
 import React from 'react'
 
-import * as styles from './Wrapper.module.css'
+import styles from './Wrapper.module.css'
 
 const Wrapper = (props) => {
     return (

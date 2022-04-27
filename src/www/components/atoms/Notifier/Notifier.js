@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTyes from 'prop-types'
-import * as styles from './Notifier.module.css'
+import styles from './Notifier.module.css'
 
 const Notifier = (props) => {
-    const classes = [styles.notifier].join(' ')
+    const classes = [styles.notifier, 'font-regular']
     return (
-        <div className={classes}>
+        <div className={classes.join(' ')}>
             {props.message}
         </div>
     )

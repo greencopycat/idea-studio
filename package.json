@@ -10,17 +10,17 @@
     "less": "^4.1.2",
     "less-loader": "^10.2.0",
     "mongoose": "^6.3.1",
-    "react": "^16.8.6",
+    "react": "^18.1.0",
     "react-dom": "^16.8.6",
     "react-router-dom": "^6.3.0",
-    "react-scripts": "3.0.1",
+    "react-scripts": "5.0.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
     "babel-eslint": "10.0.1",
     "concurrently": "^4.1.0",
     "cross-spawn": "^6.0.5",
-    "eslint": "^5.16.0",
+    "eslint": "^8.14.0",
     "eslint-config-standard": "^12.0.0",
     "eslint-plugin-flowtype": "2.50.1",
     "eslint-plugin-import": "2.16.0",
@@ -29,8 +29,7 @@
     "eslint-plugin-promise": "^4.1.1",
     "eslint-plugin-standard": "^4.0.0",
     "nodemon": "^1.19.1",
-    "prettier": "^1.17.1",
-    "sass": "^1.50.1"
+    "prettier": "^1.17.1"
   },
   "scripts": {
     "start": "bash bin/dev.sh",

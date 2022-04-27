@@ -1,0 +1,17 @@
+.wrapper {
+    border: thin solid var(--menu-bg);
+    border-radius: .8rem;
+    box-shadow: none;
+    background-color: var(--menu-bg);
+    padding: .5rem 1rem;
+    height: 3.2rem;
+    transition: color 500ms linear 10ms, background-color 500ms linear 10ms;
+    color: var(--white);
+    min-width: 15rem;
+}
+
+.wrapper:hover {
+    transition: color 500ms linear 10ms, background-color 500ms linear 10ms;
+    background-color: var(--white);
+    color: var(--menu-bg);
+}

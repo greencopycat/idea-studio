@@ -1,5 +1,5 @@
 import React from 'react'
-import * as styles from './Overlay.module.scss';
+import styles from './Overlay.module.css';
 
 const Overlay = (props) => {
     const loadingText = props.text | 'Loading...'
