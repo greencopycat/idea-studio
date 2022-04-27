@@ -25,13 +25,13 @@ const Table = (props) => {
     }, [props])
 
     useEffect(() => {
+        let headRow = []
+        fields.forEach((ea, i) => {
+            const {name, required} = ea
+            headRow.push(<th key={`${name}_th_${i}`}>{name.toUpperCase()}</th>)
+        })
+        tableHeaders.current = (<tr>{headRow}</tr>)
         if(tableData.length) {
-            let headRow = []
-            fields.forEach((ea, i) => {
-                const {name, required} = ea
-                headRow.push(<th key={`${name}_th_${i}`}>{name.toUpperCase()}</th>)
-            })
-            tableHeaders.current = (<tr>{headRow}</tr>)
             let rowData = []
             tableData.forEach((row,j) => {
                 let cellData = []
