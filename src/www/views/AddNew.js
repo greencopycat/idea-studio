@@ -10,22 +10,49 @@ import Field from './../components/atoms/Field'
 
 import { FIELDS } from './../components/atoms/Table'
 import MS from '../services/microservices'
-import { IDEA_ADD } from './../constant/constant'
+import { ENDPOINT, IDEA_ADD } from './../constant/constant'
 
 const AddNew = (props) => {
+    let timeout
     const [arr, setArray] = useReducer((state, value) => value, [])
+    const [formdata, setFormData] = useReducer((state, value) => {
+        const {row, field, val} = value
+        const data = state
+        if (val) {
+            data[row][field] = val
+        }
+        return [...data]
+    }, [])
     const [update, forceUpdate] = useState(false)
 
     const addRow = (arr) => {
         const row = {}
-        const newArr = arr
+        const newArr = arr 
         const len = arr.length
         FIELDS.forEach((f) => {
-            row[f.name] = <Field elem={`inputbox`} type={`text`} name={f.name + "_row_" + (len + 1)} />
+            row[f.name] = <Field elem={`inputbox`} type={`text`} name={f.name + "_row_" + (len + 1)} 
+                callbacks={{
+                    onChange: (evt) => {
+                        const $tar = evt.currentTarget
+                        const row = $tar.getAttribute('row')
+                        const field = $tar.getAttribute('field')
+                        clearTimeout(timeout)
+                        timeout = setTimeout(() => {
+                            setFormData({row: row, field: field, val: $tar.value})
+                        }, 200)
+                    }
+                }}
+                data={{
+                    row: len,
+                    field: f.name
+                }}
+            />
         })
+        const fd = formdata
+        setFormData(fd.push({}))
         newArr.push(row)
         setArray(newArr)
-        forceUpdate(!update)
+        // forceUpdate(!update)
     }
 
     const removeRow = (arr) => {
@@ -37,9 +64,12 @@ const AddNew = (props) => {
         }
     }
 
-    if (!arr.length) {
-        addRow(arr)
-    }
+    useEffect(() => {
+        if (!arr.length) {
+            addRow(arr)
+        }
+    }, [])
+
     return (
         <Wrapper>
             <Panel>
@@ -65,9 +95,28 @@ const AddNew = (props) => {
                     <Field elem={`button`} text={`Submit`} type={`submit`}
                         callbacks={{
                             onClick: ((evt) => {
-                                // MS.post()
+                                const fd = new FormData()
+                                formdata.forEach((data, i) => {
+                                    const reqBody = data
+                                    reqBody['tags'] = reqBody['tags'].replace(/\s/g).split(',')
+                                    Object.keys(data).forEach((ea) => {
+                                        const afv = data[ea]
+                                        if(ea === 'tags') {
+                                            afv = data[ea].replace(/\s/g, '').split(',')
+                                        }
+                                        fd.append(ea, afv)
+                                    })
+                                })
+                                MS.post(ENDPOINT.IDEA_ADD, fd)
+                                    .then((data) => {
+                                        console.log('[mS] -> ', data)
+                                    })
+                                    .catch((err) => {
+                                        console.error('[mS] -> ', err)
+                                    })
                             })
                         }}
+                        // disabled={!(formdata.length && Object.keys(formdata[0]).length)}
                         disabled={true}
                     />
                 </Row>

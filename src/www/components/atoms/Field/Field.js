@@ -16,7 +16,7 @@ const propForFields = {
     BUTTON: ['type', 'label', 'callbacks', 'text', 'callbacks', 'disabled', 'classes'],
     CHECKBOX: [],
     DROPDOWN: ['label'],
-    INPUTBOX: ['type', 'text', 'label', 'placeholder', 'callbacks', 'id', 'name', 'disabled', 'pattern', 'accept', 'classes'],
+    INPUTBOX: ['type', 'text', 'label', 'placeholder', 'callbacks', 'id', 'name', 'disabled', 'pattern', 'accept', 'classes', 'data'],
     RADIOBOX: []
 }
 
@@ -95,6 +95,7 @@ Field.propTypes = {
     accept: PropTypes.string,
     callbacks: PropTypes.objectOf(PropTypes.func),
     classes: PropTypes.string,
+    data: PropTypes.object,
     disabled: PropTypes.bool,
     display: PropTypes.oneOf(['inline', 'block', 'inline-block']),
     download: PropTypes.bool,

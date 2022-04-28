@@ -6,8 +6,9 @@ import styles from './InputBox.module.css'
 const InputBox = (props) => {
     // value, pattern, type, placeholder
     const events = {
+        onBlur: props.onBlur,
         onChange: props.onChange,
-        onClick: props.onClick
+        onClick: props.onClick,
     }
 
     const classes = ['font-regular', styles.wrapper]
@@ -16,7 +17,6 @@ const InputBox = (props) => {
         classes.concat(cls)
     }
     // if (props.call)
-
     return (
         <>
             <input 
@@ -30,6 +30,7 @@ const InputBox = (props) => {
                 pattern={props.pattern}
                 placeholder={props.placeholder} 
                 type={props.type} 
+                {...props.data}
             />
         </>
     )
@@ -38,15 +39,18 @@ const InputBox = (props) => {
 InputBox.propTypes = {
     accept: PropTypes.string,
     classes: PropTypes.string,
+    data: PropTypes.object,
     disabled: PropTypes.bool,
     download: PropTypes.bool,
     // events: PropTypes.objectOf(PropTypes.func),
     id: PropTypes.string,
     name: PropTypes.string,
+    onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onClick: PropTypes.func,
     pattern: PropTypes.string,
     placeholder: PropTypes.string,
+    row: PropTypes.number,
     type: PropTypes.string
 }
 
