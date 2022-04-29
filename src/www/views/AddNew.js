@@ -108,7 +108,8 @@ const AddNew = (props) => {
                                 MS.post(ENDPOINT.IDEA_ADD, data)
                                     .then((data) => {
                                         console.log('[mS] -> ', data)
-                                        setFormData(null)
+                                        setArray([{}])
+                                        setFormData([{}])
                                     })
                                     .catch((err) => {
                                         console.error('[mS] -> ', err)
