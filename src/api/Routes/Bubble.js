@@ -65,7 +65,7 @@ Route.post('/populate', (req, res, next) => {
 Route.post('/add', (req, res, next) => {
     res.set('Access-Control-Allow-Origin', '*')
     if (req.body) {
-        Bubbles.create(body, (err) => {
+        Bubbles.create(req.body, (err) => {
             if (err) {
                 if (err.name === 'MongoError' && err.code === 11000) {
                     delete err[`errors`]
