@@ -16,17 +16,21 @@ const AddNew = (props) => {
     let timeout
     const [arr, setArray] = useReducer((state, value) => value, [])
     const [formdata, setFormData] = useReducer((state, value) => {
-        const {row, field, val} = value
-        const data = state
-        if (val) {
-            data[row][field] = val
+        if (value) {
+            const {row, field, val} = value
+            const data = state
+            if (val) {
+                data[row][field] = val
+            }
+            return [...data]
+        } else {
+            return []
         }
-        return [...data]
     }, [])
     const [update, forceUpdate] = useState(false)
 
     const addRow = (arr) => {
-        const row = {}
+        const row = new Object({})
         const newArr = arr 
         const len = arr.length
         FIELDS.forEach((f) => {
@@ -49,17 +53,20 @@ const AddNew = (props) => {
             />
         })
         const fd = formdata
-        setFormData(fd.push({}))
+        setFormData(fd.push(new Object({})))
         newArr.push(row)
         setArray(newArr)
-        // forceUpdate(!update)
+        forceUpdate(!update)
     }
 
     const removeRow = (arr) => {
         const newArr = arr
+        const newFormData = formdata
         if (newArr.length > 1) {
             newArr.pop()
+            newFormData.pop()
             setArray(newArr)
+            setFormData(newFormData)
             forceUpdate(!update)
         }
     }
@@ -95,29 +102,21 @@ const AddNew = (props) => {
                     <Field elem={`button`} text={`Submit`} type={`submit`}
                         callbacks={{
                             onClick: ((evt) => {
-                                const fd = new FormData()
-                                formdata.forEach((data, i) => {
-                                    const reqBody = data
-                                    reqBody['tags'] = reqBody['tags'].replace(/\s/g).split(',')
-                                    Object.keys(data).forEach((ea) => {
-                                        const afv = data[ea]
-                                        if(ea === 'tags') {
-                                            afv = data[ea].replace(/\s/g, '').split(',')
-                                        }
-                                        fd.append(ea, afv)
-                                    })
-                                })
-                                MS.post(ENDPOINT.IDEA_ADD, fd)
+                                const data = {
+                                    data: formdata
+                                }
+                                MS.post(ENDPOINT.IDEA_ADD, data)
                                     .then((data) => {
                                         console.log('[mS] -> ', data)
+                                        setFormData(null)
                                     })
                                     .catch((err) => {
                                         console.error('[mS] -> ', err)
                                     })
                             })
                         }}
-                        // disabled={!(formdata.length && Object.keys(formdata[0]).length)}
-                        disabled={true}
+                        disabled={!(formdata.length && Object.keys(formdata[0]).length)}
+                        // disabled={true}
                     />
                 </Row>
             </Panel>

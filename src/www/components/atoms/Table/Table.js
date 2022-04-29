@@ -11,6 +11,8 @@ const Table = (props) => {
     const tableContent = useRef(null)
     const [update, forceUpdate] = useState(false)
 
+    console.log('[Ce] -> ', props)
+
     useEffect(() => {
         const ideas = props.data.ideas
         let renderData = []
@@ -31,7 +33,7 @@ const Table = (props) => {
             headRow.push(<th key={`${name}_th_${i}`}>{name.toUpperCase()}</th>)
         })
         tableHeaders.current = (<tr>{headRow}</tr>)
-        if(tableData.length) {
+        // if(tableData.length) {
             let rowData = []
             tableData.forEach((row,j) => {
                 let cellData = []
@@ -52,7 +54,7 @@ const Table = (props) => {
             })
             tableContent.current = rowData
             forceUpdate(!update)
-        }
+        // }
     }, [tableData])
 
     const classes = [styles.wrapper, 'font-regular']

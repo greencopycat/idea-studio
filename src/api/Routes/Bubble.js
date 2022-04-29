@@ -6,7 +6,7 @@ const FIELDS = ['id', 'idea', 'tags', 'attachments', 'url', 'description', 'note
 const filereader = require('xlsx')
 const fs = require('fs')
 
-const setDbFields = (des, tar) => { 
+const setDbFields = (body) => {
     FIELDS.forEach((key) => {
         tar[key] && (des[key] = tar[key])
     })
@@ -65,48 +65,21 @@ Route.post('/populate', (req, res, next) => {
 Route.post('/add', (req, res, next) => {
     res.set('Access-Control-Allow-Origin', '*')
     if (req.body) {
-        const data = setDbFields({}, req.body)
-        req.files && Object.keys(req.files).forEach((field) => {
-            const files = req.files[field];
-            data.attachments = []
-            if (files.length) {
-                files.forEach((f) => {
-                    const att = {
-                        data: f.data,
-                        contentType: f.mimetype,
-                        name: f.name
-                    }
-                    data.attachments.push(att)
-                })
+        Bubbles.create(body, (err) => {
+            if (err) {
+                if (err.name === 'MongoError' && err.code === 11000) {
+                    delete err[`errors`]
+                    delete err[`_message`]
+                    return res.status(CODE_FAILED).send({status:CODE_FAILED, message: MSG_DBDUP, error: err})
+                } else {
+                    delete err[`errors`]
+                    delete err[`_message`]
+                    return res.status(CODE_FAILED).send({status:CODE_FAILED, message: MSG_DBFAILED, error: err})
+                }
             } else {
-                data.attachments.push(
-                    {
-                        data: files.data,
-                        contentType: files.mimetype,
-                        name: files.name
-                    })
+                return res.status(CODE_SUCCESS).send({status: CODE_SUCCESS, message: MSG_DBSUCCESS})
             }
         })
-        if (data['tags'] && !data['tags'].length) {
-            return res.status(CODE_FAILED).send({status: CODE_FAILED, message: MSG_DBFAILED})
-        } else {
-            data[`tags`] = data[`tags`].replace(/[\[\]\s]/ig, '').split(',')
-            Bubbles.create(data, (err) => {
-                if (err) {
-                    if (err.name === 'MongoError' && err.code === 11000) {
-                        delete err[`errors`]
-                        delete err[`_message`]
-                        return res.status(CODE_FAILED).send({status:CODE_FAILED, message: MSG_DBDUP, error: err})
-                    } else {
-                        delete err[`errors`]
-                        delete err[`_message`]
-                        return res.status(CODE_FAILED).send({status:CODE_FAILED, message: MSG_DBFAILED, error: err})
-                    }
-                } else {
-                    return res.status(CODE_SUCCESS).send({status: CODE_SUCCESS, message: MSG_DBSUCCESS})
-                }
-            })
-        }
     } else {
         return res.status(CODE_FAILED).send({status:CODE_FAILED, message: MSG_NOT_FOUND})
     }

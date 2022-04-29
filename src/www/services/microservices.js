@@ -17,15 +17,34 @@ const api = async (endpoint, query) => {
 const get = (endpoint, query, callback) => {
     return api(endpoint, { method: 'GET', mode: 'cors'})
 }
-const post = async ( endpoint, query, callback) => {
+const post = async (endpoint, query, callback) => {
     if(!query) {
         return Promise.reject({status: 400, message: 'Please provide data.'})
     } else {
-        return await api(endpoint, { method: 'POST', body: query})
-        .then((data) => data)
-        .catch((err) => {
-            return Promise.reject(err)
-        })
+        try {
+            let qBody = query.data
+            if(Array.isArray(qBody)) {
+                qBody.forEach((ea) => {
+                    if (ea[`tags`] && (typeof ea[`tags`] === 'string')) {
+                        ea[`tags`] = ea[`tags`].replace(/\s/g, '').split(',')
+                    }
+                })
+            }
+            return await api(endpoint, { 
+                method: 'POST', 
+                body: JSON.stringify({data: qBody}),
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                }
+            })
+            .then((data) => data)
+            .catch((err) => {
+                return Promise.reject(err)
+            })
+        } catch (ex) {
+            console.error('[error] -> ', ex)
+        }
     }
 }
 const remove = async (endpoint, query, callback) => {
