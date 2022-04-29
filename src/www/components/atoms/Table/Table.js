@@ -11,7 +11,7 @@ const Table = (props) => {
     const tableContent = useRef(null)
     const [update, forceUpdate] = useState(false)
 
-    console.log('[Ce] -> ', props)
+    console.log('[Table] -> ', props)
 
     useEffect(() => {
         const ideas = props.data.ideas

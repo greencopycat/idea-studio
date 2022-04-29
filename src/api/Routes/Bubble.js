@@ -65,7 +65,6 @@ Route.post('/populate', (req, res, next) => {
 Route.post('/add', (req, res, next) => {
     res.set('Access-Control-Allow-Origin', '*')
     if (req.body) {
-        console.log('[body] -> ', req.body)
         const data = req.body && req.body.data || []
         Bubbles.create(data, (err) => {
             if (err) {

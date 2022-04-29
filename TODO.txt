@@ -1,0 +1,12 @@
+/*
+ * - Need to find a way to update table correctly. Especially after submit.
+ * - Remover entry(ies)
+ * - View by tag (dropdown?)
+ * - Integrate Vis.js
+ * - Add CMS - consume
+ * - Add different language
+ * - Add table for attachments
+ * - Find a way to attach (attachment id) as foreign key in AddNew
+ * - Add/Remove attachment - cause and affect (being consumed from bubble)
+ * - Add field in the AddNew to attach files
+ */

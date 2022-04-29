@@ -43,7 +43,7 @@ const post = async (endpoint, query, callback) => {
                 return Promise.reject(err)
             })
         } catch (ex) {
-            console.error('[error] -> ', ex)
+            console.error('[api] -> Exception -> ', endpoint, ' :: ', ex)
         }
     }
 }
