@@ -33,6 +33,7 @@ const View = (props) => {
                 <Row>
                     <Table data={{ideas: ideas}} />
                 </Row>
+                {!ideas.length ? <Row><Text elem={`default`} value={`No record found.`} /></Row> : null}
             </Panel>
         </Wrapper>
     )

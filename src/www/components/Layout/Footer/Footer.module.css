@@ -1,0 +1,16 @@
+.wrapper {
+    bottom: 0;
+    display: block;
+    width: 100%;
+    /* background-color: var(--menu-bg); */
+    background-color: var(--black);
+    color: var(--white);
+    padding: .5rem;
+    position: absolute;
+    transition: background-color 500ms linear 10ms;
+}
+
+.wrapper:hover {
+    transition: background-color 500ms linear 10ms;
+    background-color: var(--menu-bg);
+}

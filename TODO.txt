@@ -1,6 +1,5 @@
-/*
- * - Need to find a way to update table correctly. Especially after submit.
- * - Remover entry(ies)
+/* ACTION ITEMS: 
+ * - Remove entry(ies)
  * - View by tag (dropdown?)
  * - Integrate Vis.js
  * - Add CMS - consume
@@ -9,4 +8,14 @@
  * - Find a way to attach (attachment id) as foreign key in AddNew
  * - Add/Remove attachment - cause and affect (being consumed from bubble)
  * - Add field in the AddNew to attach files
+ * - Table pagination - split into arrays? [length.50], [length 50]? or store data in the storage (jq.datatable)
  */
+
+
+by tag - 
+    .find({tags: [name]})   // .find({tags:'demo'})
+
+sort -
+    .sort({ idea: 1})
+
+projection - 

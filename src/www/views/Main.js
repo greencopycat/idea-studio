@@ -8,10 +8,20 @@ import AddNew from './AddNew'
 import Populate from './Populate'
 import View from './View'
 import Missing from './Missing'
+import Footer from './../components/Layout/Footer/Footer'
 
 class Main extends React.Component {
     render() {
         const menuClasses = [styles.menu, 'mar-b20']
+
+        const footerProps = {
+            feed: {
+                copyright: {
+                    company: 'The Studio of Brain Pickers',
+                    year: '2022'
+                }
+            }
+        }
         return (
             <>
                 <Router>
@@ -28,6 +38,7 @@ class Main extends React.Component {
                         <Route path={`/populate`} element={<Populate />} />
                         <Route path={`/*`} element={<Missing />} />
                     </Routes>
+                    <Footer {...footerProps} />
                 </Router>
             </>
         )

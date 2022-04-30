@@ -1,4 +1,5 @@
 :root {
+    --black: rgba(0, 0, 0, .75);
     --red: red;
     --menu-bg: rgba(150,20,20,.75);
     --dark-red: rgba(100, 20, 20, .75);
@@ -101,6 +102,10 @@
     margin-bottom: 2.5rem;
 }
 
+.mar-0 {
+    margin: 0rem;
+}
+
 .pad-0 {
     padding: 0rem;
 }
@@ -114,3 +119,10 @@
 }
 
 /* functional */
+.center {
+    justify-content: center;
+}
+
+.text-center {
+    text-align: center;
+}
