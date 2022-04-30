@@ -40,15 +40,14 @@ const AddNew = (props) => {
             row[f.name] = <Field elem={`inputbox`} type={`text`} name={f.name + "_row_" + (len + 1)} 
                 callbacks={{
                     onChange: (evt) => {
+                        response.message && resetNotifier()
                         const $tar = evt.currentTarget
                         const row = $tar.getAttribute('row')
                         const field = $tar.getAttribute('field')
                         clearTimeout(timeout)
                         timeout = setTimeout(() => {
-                            response.message && resetNotifier()
-                            console.log('[res] -> resp => ', response)
                             setFormData({row: row, field: field, val: $tar.value})
-                        }, 1000)
+                        }, 500)
                     }
                 }}
                 data={{
@@ -130,17 +129,14 @@ const AddNew = (props) => {
                                         loading = false
                                         return err
                                     })
-
-                                console.log('[expect] -> ', expect)
                             })
                         }}
-                        disabled={!(formdata.length && Object.keys(formdata[0]).length)}
-                        // disabled={true}
+                        disabled={loading || !(formdata.length && Object.keys(formdata[0]).length)}
                     />
                 </Row>
                 {response.message ? 
                     <Row classes={`${response.type === 'error' ? 'error' : ''}`}>
-                        <Notifier message={response.type} />
+                        <Notifier type={response.type} message={response.message} />
                     </Row> : null
                 }
             </Panel>

@@ -23,7 +23,7 @@ const Populate = (props) => {
         } : undefined
     }, null)
     // use cms[lang] to toggle between different languages
-    console.log('[lang] -> lang -> ', store.lang, store.theme)
+    // console.log('[lang] -> lang -> ', store.lang, store.theme)
     const resetMessage = () => {
         setMessage({status: undefined, message: undefined})
     }
