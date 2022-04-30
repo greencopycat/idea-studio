@@ -11,8 +11,6 @@ const Table = (props) => {
     const tableContent = useRef(null)
     const [update, forceUpdate] = useState(false)
 
-    console.log('[Table] -> ', props)
-
     useEffect(() => {
         const ideas = props.data.ideas
         let renderData = []
@@ -24,6 +22,7 @@ const Table = (props) => {
             renderData.push(rowData)
         })
         setTableData(renderData)
+        // console.log('[Table] -> ', props)
     }, [props])
 
     useEffect(() => {

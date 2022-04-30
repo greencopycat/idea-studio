@@ -54,14 +54,14 @@ const Populate = (props) => {
                         />
                         <Field display={`inline-block`} elem={'button'} text={`Submit`} type={`submit`} 
                             callbacks={{
-                                onClick: ((evt) => {
+                                onClick: (async (evt) => {
                                     setMessage({status: undefined, message: undefined})
                                     const $file = document.querySelector('#file')
                                     if ($file.files && $file.files.length) {
                                         const formdata = new FormData()
                                         formdata.append('doc', $file.files.item(0))
 
-                                        MS.post(DBHOSTNAME + ENDPOINT.IDEA_POPULATE, formdata)
+                                        await MS.post(DBHOSTNAME + ENDPOINT.IDEA_POPULATE, { data: formdata, page: 'populate'})
                                             .then((resp) => {
                                                 setMessage(resp)
                                             })

@@ -2,7 +2,7 @@ const api = async (endpoint, query) => {
     return await fetch(endpoint, query)
         .then((data) => {
             if(data.status >= 400) {
-                return data.json()
+                return Promise.reject(data.json())
             } else {
                 return data.json()
             }
@@ -23,20 +23,28 @@ const post = async (endpoint, query, callback) => {
     } else {
         try {
             let qBody = query.data
-            if(Array.isArray(qBody)) {
-                qBody.forEach((ea) => {
-                    if (ea[`tags`] && (typeof ea[`tags`] === 'string')) {
-                        ea[`tags`] = ea[`tags`].replace(/\s/g, '').split(',')
-                    }
-                })
+            let page = query.page
+            let headers = {}
+            let body = ''
+            if(page === 'addnew') {
+                headers[`Accept`] = 'application/json'
+                headers[`Content-Type`] = 'application/json'
+                if(Array.isArray(qBody)) {
+                    qBody.forEach((ea) => {
+                        if (ea[`tags`] && (typeof ea[`tags`] === 'string')) {
+                            ea[`tags`] = ea[`tags`].replace(/\s/g, '').split(',')
+                        }
+                    })
+                }
+                body = JSON.stringify({data: qBody})
+            } else 
+            if(page === 'populate') {
+                body = qBody
             }
             return await api(endpoint, { 
                 method: 'POST', 
-                body: JSON.stringify({data: qBody}),
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                }
+                body,
+                headers,
             })
             .then((data) => data)
             .catch((err) => {

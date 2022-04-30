@@ -7,6 +7,7 @@ import Row from './../components/Layout/Row'
 import Text from './../components/atoms/Text'
 import Table from './../components/atoms/Table'
 import Field from './../components/atoms/Field'
+import Notifier from './../components/atoms/Notifier'
 
 import { FIELDS } from './../components/atoms/Table'
 import MS from '../services/microservices'
@@ -14,7 +15,9 @@ import { ENDPOINT, IDEA_ADD } from './../constant/constant'
 
 const AddNew = (props) => {
     let timeout
+    let loading = false
     const [arr, setArray] = useReducer((state, value) => value, [])
+    const [response, setResponse] = useState({type: null, message: null})
     const [formdata, setFormData] = useReducer((state, value) => {
         if (value) {
             const {row, field, val} = value
@@ -24,15 +27,15 @@ const AddNew = (props) => {
             }
             return [...data]
         } else {
-            return []
+            return [{}]
         }
     }, [])
     const [update, forceUpdate] = useState(false)
 
-    const addRow = (arr) => {
+    const addRow = async (addArr) => {
         const row = new Object({})
-        const newArr = arr 
-        const len = arr.length
+        const newArr = addArr 
+        const len = addArr.length
         FIELDS.forEach((f) => {
             row[f.name] = <Field elem={`inputbox`} type={`text`} name={f.name + "_row_" + (len + 1)} 
                 callbacks={{
@@ -42,8 +45,10 @@ const AddNew = (props) => {
                         const field = $tar.getAttribute('field')
                         clearTimeout(timeout)
                         timeout = setTimeout(() => {
+                            response.message && resetNotifier()
+                            console.log('[res] -> resp => ', response)
                             setFormData({row: row, field: field, val: $tar.value})
-                        }, 200)
+                        }, 1000)
                     }
                 }}
                 data={{
@@ -65,10 +70,14 @@ const AddNew = (props) => {
         if (newArr.length > 1) {
             newArr.pop()
             newFormData.pop()
-            setArray(newArr)
             setFormData(newFormData)
+            setArray(newArr)
             forceUpdate(!update)
         }
+    }
+
+    const resetNotifier = () => {
+        setResponse({type:null, message: null})
     }
 
     useEffect(() => {
@@ -83,7 +92,7 @@ const AddNew = (props) => {
                 <Text elem={`heading`} level={1} value={`Add new items`} />
                 <Text elem={`default`} classes={`mar-b25`} value={`Make your idea counts`} />
                 <Table data={{ideas: arr}} page={`addnew`} />
-                <Row>
+                <Row classes={`mar-b25`}>
                     <Field elem={`button`} text={`Add row`} type={`submit`}
                         callbacks={{
                             onClick: ((evt) => {
@@ -101,24 +110,39 @@ const AddNew = (props) => {
                     />
                     <Field elem={`button`} text={`Submit`} type={`submit`}
                         callbacks={{
-                            onClick: ((evt) => {
+                            onClick: (async (evt) => {
+                                loading = true
                                 const data = {
-                                    data: formdata
+                                    data: formdata,
+                                    page: 'addnew'
                                 }
-                                MS.post(ENDPOINT.IDEA_ADD, data)
+                                const expect = await MS.post(ENDPOINT.IDEA_ADD, data)
                                     .then((data) => {
-                                        setArray([{}])
-                                        setFormData([{}])
+                                        setFormData(null)
+                                        setArray([])
+                                        addRow([])
+                                        setResponse({type: 'success', message: data.message})
+                                        loading = false
+                                        return data
                                     })
                                     .catch((err) => {
-                                        console.error('[microservices] -> ', err)
+                                        setResponse({type: 'error', message: err.message})
+                                        loading = false
+                                        return err
                                     })
+
+                                console.log('[expect] -> ', expect)
                             })
                         }}
                         disabled={!(formdata.length && Object.keys(formdata[0]).length)}
                         // disabled={true}
                     />
                 </Row>
+                {response.message ? 
+                    <Row classes={`${response.type === 'error' ? 'error' : ''}`}>
+                        <Notifier message={response.type} />
+                    </Row> : null
+                }
             </Panel>
         </Wrapper>
     )
