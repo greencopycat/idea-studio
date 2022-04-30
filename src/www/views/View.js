@@ -8,14 +8,16 @@ import Wrapper from './../components/Layout/Wrapper'
 import Panel from './../components/Layout/Panel'
 import Row from './../components/Layout/Row'
 import Table from './../components/atoms/Table'
+import Field from './../components/atoms/Field'
 
 const DBHOSTNAME = "http://localhost:4000"
 
 const View = (props) => {
     const [ideas, setIdeas] = useReducer((state, value) => value, [])
-    useEffect(() => {
+    let timeout
+    useEffect(async () => {
         let value
-        MS.get(`${DBHOSTNAME}${ENDPOINT.IDEA_GET}`)
+        await MS.get(`${DBHOSTNAME}${ENDPOINT.IDEA_GET}`)
             .then((data) => {
                 value = data.body
                 setIdeas(value)
@@ -30,6 +32,27 @@ const View = (props) => {
             <Panel>
                 <Text elem={`heading`} level={1} value={`View ideas`} />
                 <Text classes={`mar-b25`} elem={`default`} value={`What's on your mind?`} />
+                <Row>
+                    <Field elem={`inputbox`} type={`search`} placeholder={`View by tags`} classes={`search, mar-b10`} label={`Search by tag: `} 
+                        callbacks={{
+                            onChange: (evt) => {
+                                timeout && clearTimeout(timeout)
+                                const $tar = evt.currentTarget
+                                const val = $tar.value
+                                const query = val ? '?tags=' + val : ''
+                                timeout = setTimeout(async () => {
+                                    await MS.get(ENDPOINT.IDEA_GET + query)
+                                        .then((data) => {
+                                            setIdeas(data.body)
+                                        })
+                                        .catch((err) => {
+                                            console.error('[get by tags] -> ', err)
+                                        })
+                                }, 800)
+                            }
+                        }}
+                    />
+                </Row>
                 <Row>
                     <Table data={{ideas: ideas}} />
                 </Row>

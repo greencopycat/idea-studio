@@ -14,7 +14,7 @@ const InputBox = (props) => {
     const classes = ['font-regular', styles.wrapper]
     if (props.classes) {
         const cls = props.classes.split(' ')
-        classes.concat(cls)
+        classes.push(...cls)
     }
     // if (props.call)
     return (

@@ -30,6 +30,7 @@ Route.post('/populate', (req, res, next) => {
 
         for (let s in sheets) {
             let tmp = filereader.utils.sheet_to_json(sheets[s])
+            console.log('[sheet] -> ', tmp)
             tmp.forEach((ea) => {
                 let tagArr = []
                 if (ea.tags) {

@@ -20,15 +20,6 @@ const Text = (props) => {
     let MyText = <div />
     const classes = [`font-regular`]
 
-
-    const symbol = (str) => {
-        if (str.match(/^&.*;$/)) {
-            return <span dangerouslySetInnerHTML={{__html: str}} />
-        } else {
-            return str
-        }
-    }
-
     props.classes && props.classes.split(' ').forEach((cls) => classes.push(cls))
 
     if(props.display) {

@@ -11,7 +11,7 @@ import Notifier from './../components/atoms/Notifier'
 
 import { FIELDS } from './../components/atoms/Table'
 import MS from '../services/microservices'
-import { ENDPOINT, IDEA_ADD } from './../constant/constant'
+import { ENDPOINT } from './../constant/constant'
 
 const AddNew = (props) => {
     let timeout
@@ -33,7 +33,7 @@ const AddNew = (props) => {
     const [update, forceUpdate] = useState(false)
 
     const addRow = async (addArr) => {
-        const row = new Object({})
+        const row = {}
         const newArr = addArr 
         const len = addArr.length
         FIELDS.forEach((f) => {
@@ -57,7 +57,7 @@ const AddNew = (props) => {
             />
         })
         const fd = formdata
-        setFormData(fd.push(new Object({})))
+        setFormData(fd.push({}))
         newArr.push(row)
         setArray(newArr)
         forceUpdate(!update)
@@ -83,7 +83,7 @@ const AddNew = (props) => {
         if (!arr.length) {
             addRow(arr)
         }
-    }, [])
+    }, [props])
 
     return (
         <Wrapper>
@@ -115,7 +115,7 @@ const AddNew = (props) => {
                                     data: formdata,
                                     page: 'addnew'
                                 }
-                                const expect = await MS.post(ENDPOINT.IDEA_ADD, data)
+                                await MS.post(ENDPOINT.IDEA_ADD, data)
                                     .then((data) => {
                                         setFormData(null)
                                         setArray([])
