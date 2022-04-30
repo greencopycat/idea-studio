@@ -6,7 +6,7 @@
     background-color: var(--black);
     color: var(--white);
     padding: .5rem;
-    position: absolute;
+    position: fixed;
     transition: background-color 500ms linear 10ms;
 }
 

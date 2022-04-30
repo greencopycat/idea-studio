@@ -20,7 +20,7 @@ input[type=file].wrapper:hover::file-selector-button {
     color: var(--menu-bg);
 }
 
-input.wrapper {
+input[type=search].wrapper {
     border: thin solid var(--blue);
     padding: .5rem;
     max-width: 20rem;

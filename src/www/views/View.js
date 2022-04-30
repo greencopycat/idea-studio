@@ -15,9 +15,9 @@ const DBHOSTNAME = "http://localhost:4000"
 const View = (props) => {
     const [ideas, setIdeas] = useReducer((state, value) => value, [])
     let timeout
-    useEffect(async () => {
+    useEffect(() => {
         let value
-        await MS.get(`${DBHOSTNAME}${ENDPOINT.IDEA_GET}`)
+        MS.get(`${DBHOSTNAME}${ENDPOINT.IDEA_GET}`)
             .then((data) => {
                 value = data.body
                 setIdeas(value)
