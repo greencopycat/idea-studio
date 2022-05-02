@@ -108,6 +108,31 @@ Route.get('/setfree', (req, res, next) => {
     })
 })
 
+Route.get('/test', (req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*')
+    const query = {};
+    let sortby = ''
+    if (req.query) {
+        if (req.query.sort) {
+            sortby = req.query.sort
+        }
+        Object.keys(req.query).forEach((q) => FIELDS.includes(q) && (query[q] = { '$in' : req.query[q].split(',')}))
+    }
+    // query['tags'] = {
+    //     $regex: /shared/ig
+    // }
+    Bubbles.find(query, '-_id -__v')
+    .sort(sortby)
+    .exec( (err, result) => {
+        if(err) {
+            return res.status(CODE_FAILED).send({status: CODE_FAILED, message: MSG_DBFAILED})
+        } else {
+            return res.status(CODE_SUCCESS).send({status: CODE_SUCCESS, message: MSG_GET_SUCCESS, body: result})
+        }
+    })
+})
+
+
 Route.get('/tags', (req, res, next) => {
     res.set('Access-Control-Allow-Origin', '*')
     const query = {}

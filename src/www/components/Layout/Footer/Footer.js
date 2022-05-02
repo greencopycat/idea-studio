@@ -9,7 +9,7 @@ const Footer = (props) => {
     const classes = [styles.wrapper, 'text-center']
     return (
         <div className={classes.join(' ')}>
-            {copyright ? <Text elem={`paragraph`} value={`Copyright &copy; ${copyright.year} ${copyright.company}. Alright reserved.`} /> : null }
+            {copyright ? <Text elem={`paragraph`} value={`Copyright &copy; ${copyright.year} ${copyright.company}. All rights reserved.`} /> : null }
         </div>
     )
 }

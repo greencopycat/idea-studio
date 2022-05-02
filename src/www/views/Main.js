@@ -7,12 +7,14 @@ import Welcome from './Welcome'
 import AddNew from './AddNew'
 import Populate from './Populate'
 import View from './View'
+import Visual from './Visual'
 import Missing from './Missing'
+import Hero from './../components/atoms/Hero'
 import Footer from './../components/Layout/Footer/Footer'
 
 class Main extends React.Component {
     render() {
-        const menuClasses = [styles.menu, 'mar-b20']
+        const menuClasses = [styles.menu]
 
         const footerProps = {
             feed: {
@@ -30,12 +32,15 @@ class Main extends React.Component {
                         <NavLink className={`font-regular`} to={`/view`}>View</NavLink>
                         <NavLink className={`font-regular`} to={`/addnew`}>New</NavLink>
                         <NavLink className={`font-regular`} to={`/populate`}>Bulk</NavLink>
+                        {/* <NavLink className={`font-regular`} to={`/visualization`}>Visualization</NavLink> */}
                     </div>
+                    <Hero classes={`mar-b25`} size={`small`} />
                     <Routes>
                         <Route path={`/`} exact element={<Welcome />} />
                         <Route path={`/view`} element={<View />} />
                         <Route path={`/addnew`} element={<AddNew />} />
                         <Route path={`/populate`} element={<Populate />} />
+                        {/* <Route path={`/visualization`} element={<Visual/>} /> */}
                         <Route path={`/*`} element={<Missing />} />
                     </Routes>
                     <Footer {...footerProps} />

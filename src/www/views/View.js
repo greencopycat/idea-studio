@@ -14,6 +14,7 @@ const DBHOSTNAME = "http://localhost:4000"
 
 const View = (props) => {
     const [ideas, setIdeas] = useReducer((state, value) => value, [])
+    const [key, setKey] = useReducer((state, value) => value, 'tags')
     let timeout
     useEffect(() => {
         let value
@@ -39,7 +40,8 @@ const View = (props) => {
                                 timeout && clearTimeout(timeout)
                                 const $tar = evt.currentTarget
                                 const val = $tar.value
-                                const query = val ? '?tags=' + val : ''
+
+                                const query = val ? `?${key}=` + val : ''
                                 timeout = setTimeout(async () => {
                                     await MS.get(ENDPOINT.IDEA_GET + query)
                                         .then((data) => {
