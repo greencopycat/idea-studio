@@ -20,7 +20,7 @@ const View = (props) => {
         let value
         MS.get(`${DBHOSTNAME}${ENDPOINT.IDEA_GET}`)
             .then((data) => {
-                value = data.body
+                value = data.body || []
                 setIdeas(value)
             })
             .catch((err) => {

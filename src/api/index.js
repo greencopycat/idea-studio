@@ -4,7 +4,9 @@ const bodyParser = require('body-parser')
 require('dotenv').config()
 const mongoose = require('mongoose')
 
-mongoose.connect('mongodb://127.0.0.1:27017/bubble')
+const atlasUrl = 'mongodb+srv://dumbify:paperHotDog4Free@cluster0.u1ik8.mongodb.net/bubble?retryWrites=true&w=majority'
+mongoose.connect(atlasUrl)
+// mongoose.connect('mongodb://127.0.0.1:27017/bubble')
 
 const Bubble = require('./Routes/Bubble')
 const FourTwenty = require('./Routes/FourTwenty')
