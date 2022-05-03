@@ -23,4 +23,4 @@ app.use('/bubble', Bubble)
 
 app.use('/*', FourTwenty)
 
-app.listen(port, () => console.log(`Example backend API listening on port ${port}!`))
+app.listen(port, () => console.log(`Backend API listening on port ${port}!`))
