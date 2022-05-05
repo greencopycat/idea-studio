@@ -1,0 +1,18 @@
+.wrapper {
+    height: 3rem;
+    appearance: button;
+    min-width: 5rem;
+    border-radius: .2rem;
+    padding: .5rem 1rem;
+    border-width: thin;
+    box-shadow: none;
+    border-color: var(--blue);
+}
+
+.wrapper:after {
+    display: block;
+    content: '';
+    height: 1rem;
+    width: 1rem;
+    transform: rotate(90deg);
+}

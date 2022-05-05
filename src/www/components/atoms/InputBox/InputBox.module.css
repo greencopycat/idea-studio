@@ -1,5 +1,6 @@
 .wrapper {
     padding: 0;
+    max-height: 3rem;
 }
 
 input[type=file].wrapper::file-selector-button {

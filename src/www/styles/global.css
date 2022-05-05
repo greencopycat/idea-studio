@@ -63,11 +63,24 @@
     font-size: 2rem;
 }
 
+.mar-t0 {
+    margin-top: 0rem;
+}
+
+.mar-b0 {
+    margin-bottom: 0 rem;
+}
+
 .mar-t5 {
     margin-top: .5rem;
 }
+
 .mar-b5 {
     margin-bottom: .5rem;
+}
+
+.mar-l5 {
+    margin-left: .5rem;
 }
 
 .mar-t10 {
@@ -78,12 +91,20 @@
     margin-bottom: 1rem;
 }
 
+.mar-l10 {
+    margin-left: 1rem;
+}
+
 .mar-t15 {
     margin-top: 1.5rem;
 }
 
 .mar-b15 {
     margin-bottom: 1.5rem;
+}
+
+.mar-l15 {
+    margin-left: 1.5rem;
 }
 
 .mar-t20 {
@@ -123,6 +144,14 @@
     justify-content: center;
 }
 
+.valign-m {
+    vertical-align: middle;
+}
+
 .text-center {
     text-align: center;
+}
+
+.align-items-c {
+    align-items: center;
 }

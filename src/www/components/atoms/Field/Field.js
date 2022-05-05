@@ -63,19 +63,19 @@ const Field = (props) => {
                 break
             case 'CHECKBOX':
                 Component = CheckBox
-                classes.push(styles.field)
+                // classes.push(styles.field)
                 break
             case 'DROPDOWN':
                 Component = Dropdown
-                classes.push(styles.field)
+                // classes.push(styles.field)
                 break
             case 'INPUTBOX':
                 Component = InputBox
-                classes.push(styles.field)
+                // classes.push(styles.field)
                 break
             case 'RADIOBOX': 
                 Component = RadioBox
-                classes.push(styles.field)
+                // classes.push(styles.field)
                 break
             default:
                 break

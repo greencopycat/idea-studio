@@ -112,7 +112,12 @@ Route.get('/setfree', (req, res, next) => {
         if (req.query.sort) {
             sortby = req.query.sort
         }
-        Object.keys(req.query).forEach((q) => FIELDS.includes(q) && (query[q] = { '$in' : req.query[q].split(',')}))
+        Object.keys(req.query).forEach((q) => {
+            FIELDS.includes(q) && 
+            (query[q] = { 
+                '$regex' : new RegExp(req.query[q], 'ig')
+            })
+        })
     }
     Bubbles.find(query, '-_id -__v')
     .sort(sortby)
