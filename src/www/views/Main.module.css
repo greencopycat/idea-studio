@@ -1,19 +1,16 @@
 .menu {
     height: auto;
     background-color: rgba(150,20,20,.75);
-    transition: margin-top 300ms linear, background-color 300ms linear;
     width: 100%;
     color: white;
     overflow: hidden;
     padding: 1rem;
-    margin-top: -2rem;
-    animation: hidemenu 3300ms linear 0ms;
+    transition: background-color 300ms linear;
 }
 
 .menu:hover {
     background-color: rgba(0, 0, 0, .75);
-    margin-top: 0rem;
-    transition: margin-top 300ms linear, background-color 300ms linear;
+    transition: background-color 300ms linear;
 }
 
 .menu a {
@@ -32,6 +29,17 @@
 
 .menu:hover a:not(:first-child) {
     border-left-color: rgba(255, 255, 255, .55);
+}
+
+.menu:global(.auto-hide) {
+    margin-top: -2rem;
+    animation: hidemenu 3300ms linear 0ms;
+    transition: margin-top 300ms linear, background-color 300ms linear;
+}
+
+.menu:global(.auto-hide):hover {
+    margin-top: 0rem;
+    transition: margin-top 300ms linear, background-color 300ms linear;
 }
 
 @keyframes hidemenu {
