@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 import styles from './Table.module.css'
 
-const fields = [{name: 'id', required: true}, { name: 'author', required: true}, { name: 'idea', required: true}, { name: 'tags', required: true}, { name: 'description'}, { name: 'attachments'}, { name: 'url'}, { name: 'note'} ]
+const fields = [{ name: 'author', required: true}, { name: 'idea', required: true}, { name: 'tags', required: true}, { name: 'description'}, { name: 'attachments'}, { name: 'url'}, { name: 'note'} ]
 
 const Table = (props) => {
     const [tableData, setTableData] = useReducer((state, val) => val, [])
@@ -73,7 +73,7 @@ const Table = (props) => {
 
 Table.propTypes = {
     data: PropTypes.object,
-    page: PropTypes.oneOf(['addnew', 'view'])
+    page: PropTypes.oneOf(['addnew', 'view', 'update'])
 }
 
 export default Table

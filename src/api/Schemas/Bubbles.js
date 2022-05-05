@@ -3,9 +3,8 @@ const MAX_ATTACHMENT = '3'
 
 // should allow image, video, audio, and other form of documents. 
 const Bubble = new mongoose.Schema({
-    id: {
+    _id: {
         type: String,
-        unique: [true, 'Id must be unique. Please check the value provided.'], 
         required: true
     },
     author: {
@@ -40,6 +39,8 @@ const Bubble = new mongoose.Schema({
         type: Date,
         default: Date.now
     }
+}, {
+    _id: false
 })
 
 module.exports = new mongoose.model('Bubble', Bubble)

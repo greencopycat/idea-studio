@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 
 const Row = (props) => {
     let cols;
-    cols = 'col-' + (props.columns ? props.columns : (12 / (props.children.length || 1)))
+    cols = 'col-' + (props.columns ? props.columns : (12 / (props.children?.length || 1)))
     const classes = [cols]
     let cls = []
     props.classes && (cls = props.classes.split(' '))
@@ -19,4 +19,5 @@ Row.propTypes = {
     classes: PropTypes.string,
     columns: PropTypes.number
 }
+
 export default Row

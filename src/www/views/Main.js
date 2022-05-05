@@ -10,6 +10,7 @@ import View from './View'
 import Visual from './Visual'
 import Missing from './Missing'
 import Hero from './../components/atoms/Hero'
+import Update from './Update'
 import Footer from './../components/Layout/Footer/Footer'
 
 class Main extends React.Component {
@@ -30,6 +31,7 @@ class Main extends React.Component {
                     <div className={menuClasses.join(' ')}>
                         <NavLink className={`font-regular`} to={`/`}>Home</NavLink>
                         <NavLink className={`font-regular`} to={`/view`}>View</NavLink>
+                        <NavLink className={`font-regular`} to={`/update`}>Update</NavLink>
                         <NavLink className={`font-regular`} to={`/addnew`}>New</NavLink>
                         <NavLink className={`font-regular`} to={`/populate`}>Bulk</NavLink>
                         {/* <NavLink className={`font-regular`} to={`/visualization`}>Visualization</NavLink> */}
@@ -38,6 +40,7 @@ class Main extends React.Component {
                     <Routes>
                         <Route path={`/`} exact element={<Welcome />} />
                         <Route path={`/view`} element={<View />} />
+                        <Route path={`/update`} element={<Update />} />
                         <Route path={`/addnew`} element={<AddNew />} />
                         <Route path={`/populate`} element={<Populate />} />
                         {/* <Route path={`/visualization`} element={<Visual/>} /> */}

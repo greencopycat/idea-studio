@@ -30,9 +30,18 @@ Route.post('/populate', (req, res, next) => {
 
         for (let s in sheets) {
             let tmp = filereader.utils.sheet_to_json(sheets[s])
-            console.log('[sheet] -> ', tmp)
+            let id = ''
+            let index = 0
             tmp.forEach((ea) => {
                 let tagArr = []
+                let newId = (new Date().toJSON()).replace(/[\-T\:\.]/g, '').substring(0,14)
+                if (newId !== id) {
+                    index = 0
+                } else {
+                    index++
+                }
+                ea._id = newId + '-' + ('000' + index).slice(-3)
+                id = newId
                 if (ea.tags) {
                     // to lower (camel) case for all?
                     tagArr = ea.tags.replace(/[\[\]\s]/ig, '').split(',')
@@ -69,6 +78,14 @@ Route.post('/add', (req, res, next) => {
         const data = req.body && req.body.data || []
         Bubbles.create(data, (err) => {
             if (err) {
+                // console.log('[db error] -> ', typeof err.errors)
+                // const errors = err.errors
+                // const errorFields = Object.keys(errors)
+                // const errorObject = []
+                // errorFields.forEach((key) => {
+                //     errorTypes.push(errors[key][`type`])
+                // })
+                console.log('[err] -> ', err)
                 if (err.name === 'MongoError' && err.code === 11000) {
                     delete err[`errors`]
                     delete err[`_message`]
