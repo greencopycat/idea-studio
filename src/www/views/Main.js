@@ -9,6 +9,7 @@ import Populate from './Populate'
 import View from './View'
 import Visual from './Visual'
 import Missing from './Missing'
+import Modify from './Modify'
 import Hero from './../components/atoms/Hero'
 import Update from './Update'
 import Footer from './../components/Layout/Footer/Footer'
@@ -40,7 +41,8 @@ class Main extends React.Component {
                     <Routes>
                         <Route path={`/`} exact element={<Welcome />} />
                         <Route path={`/view`} element={<View />} />
-                        <Route path={`/update`} element={<Update />} />
+                        <Route path={`/update`} exact element={<Update />} />
+                        <Route path={`/update/:id`} element={<Modify />} />
                         <Route path={`/addnew`} element={<AddNew />} />
                         <Route path={`/populate`} element={<Populate />} />
                         {/* <Route path={`/visualization`} element={<Visual/>} /> */}

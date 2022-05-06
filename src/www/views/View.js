@@ -1,28 +1,26 @@
-import React, {useEffect, useReducer, useState} from 'react'
+import React, { useEffect, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import MS from './../services/microservices'
-import { ENDPOINT } from '../constant/constant'
+import { DBHOST, ENDPOINT } from '../constant/constant'
 
-import Text from './../components/atoms/Text'
 import Wrapper from './../components/Layout/Wrapper'
 import Panel from './../components/Layout/Panel'
 import Row from './../components/Layout/Row'
 import Table, { FIELDS } from './../components/atoms/Table'
+import Text from './../components/atoms/Text'
 import Field from './../components/atoms/Field'
 import Dropdown from '../components/atoms/Dropdown'
 
-const DBHOSTNAME = "http://localhost:4000"
 
 const View = (props) => {
     const [ideas, setIdeas] = useReducer((state, value) => value, [])
     const [key, setKey] = useReducer((state, value) => value, null)
-    let filterKey
     const excludeFilter = ['attachments', 'url']
     let timeout
     useEffect(() => {
         let value
         setKey(FIELDS[0].name.replace(/\s/g, ''))
-        MS.get(`${DBHOSTNAME}${ENDPOINT.IDEA_GET}`)
+        MS.get(`${DBHOST.DEV}${ENDPOINT.IDEA_GET}`)
             .then((data) => {
                 value = data.body || []
                 setIdeas(value)

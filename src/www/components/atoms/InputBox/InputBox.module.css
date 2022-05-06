@@ -23,8 +23,9 @@ input[type=file].wrapper:hover::file-selector-button {
 
 input[type=search].wrapper {
     border: thin solid var(--blue);
-    padding: .5rem;
+    padding: .5rem 1rem;
     max-width: 20rem;
+    border-radius: .2rem;
 }
 
 .wrapper.pad-0 {

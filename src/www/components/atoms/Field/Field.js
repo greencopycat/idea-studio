@@ -13,7 +13,7 @@ import Text from './../Text'
 import styles from './Field.module.css'
 
 const propForFields = {
-    BUTTON: ['type', 'label', 'callbacks', 'text', 'callbacks', 'disabled', 'classes'],
+    BUTTON: ['type', 'label', 'callbacks', 'text', 'callbacks', 'disabled', 'classes', 'icon'],
     CHECKBOX: [],
     DROPDOWN: ['label'],
     INPUTBOX: ['type', 'text', 'label', 'placeholder', 'callbacks', 'id', 'name', 'disabled', 'pattern', 'accept', 'classes', 'data'],
@@ -31,7 +31,7 @@ const getProps = (des, propNames, props) => {
                 des[ea] = props[ea]
             }
         }
-    }) 
+    })
     return des
 }
 
@@ -55,7 +55,7 @@ const Field = (props) => {
         }
     }
     props.classes && classes.concat(props.classes.split(' '))
-    if (props.type) {
+    if (props.elem) {
         const elem = props.elem.toUpperCase()
         switch(elem) {
             case 'BUTTON': 
@@ -82,7 +82,6 @@ const Field = (props) => {
         }
         fieldProps = getProps({}, propForFields[elem], props)
     }
-
     return (
         <div className={classes.join(' ')}>
             {props.label ? <Text elem={`label`} value={props.label} /> : null}
@@ -100,6 +99,7 @@ Field.propTypes = {
     display: PropTypes.oneOf(['inline', 'block', 'inline-block']),
     download: PropTypes.bool,
     elem: PropTypes.oneOf(['button', 'checkbox', 'dropdown', 'inputbox', 'radiobox']),
+    icon: PropTypes.oneOf(['del', 'mod']),
     id: PropTypes.string,
     label: PropTypes.string,
     maxlength: PropTypes.number,

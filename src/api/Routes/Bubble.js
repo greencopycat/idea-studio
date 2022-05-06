@@ -119,7 +119,7 @@ Route.get('/setfree', (req, res, next) => {
             })
         })
     }
-    Bubbles.find(query, '-_id -__v')
+    Bubbles.find(query, '-__v')
     .sort(sortby)
     .exec( (err, result) => {
         if(err) {

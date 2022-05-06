@@ -7,7 +7,14 @@
     height: 3rem;
     transition: color 500ms linear 10ms, background-color 500ms linear 10ms;
     color: var(--white);
+}
+
+.wrapper:not(.icon) {
     min-width: 15rem;
+}
+
+.wrapper.icon {
+    width: 3rem;
 }
 
 .wrapper:not([disabled]):hover {
