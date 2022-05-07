@@ -1,27 +1,36 @@
 .wrapper {
-    border: thin solid var(--menu-bg);
     border-radius: .5rem;
     box-shadow: none;
-    background-color: var(--menu-bg);
     height: 3rem;
     transition: color 500ms linear 10ms, background-color 500ms linear 10ms;
-    color: var(--white);
 }
 
 .wrapper:not(.icon) {
     min-width: 15rem;
     padding: .5rem 1rem;
+    color: var(--white);
+    background-color: var(--menu-bg);
+    border: thin solid var(--menu-bg);
 }
 
 .wrapper.icon {
     width: 3rem;
     padding: 0rem;
+    color: var(--blue);
+    border: none;
+    border-radius: 50%;
+    background-color: transparent;
 }
 
-.wrapper:not([disabled]):hover {
+.wrapper:not([disabled]):not(.icon):hover {
     transition: color 500ms linear 10ms, background-color 500ms linear 10ms;
     background-color: var(--white);
     color: var(--menu-bg);
+}
+
+.wrapper.icon:hover {
+    transition: color 500ms linear 10ms, background-color 500ms linear 10ms;
+    background-color: var(--gray-light);
 }
 
 .wrapper[disabled] {

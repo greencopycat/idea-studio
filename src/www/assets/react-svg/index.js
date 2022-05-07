@@ -1,6 +1,7 @@
 const svgIcons = {
     svgDelete: (
         <svg
+            aria-label={`Delete`}
             viewBox="0 0 48 48"
             id="svg-delete"
             xmlns="http://www.w3.org/2000/svg">
@@ -17,6 +18,7 @@ const svgIcons = {
         </svg>),
     svgModify: (
         <svg
+            aria-label={`Modify`}
             viewBox="0 0 48 48"
             id="svg-modify"
             xmlns="http://www.w3.org/2000/svg">

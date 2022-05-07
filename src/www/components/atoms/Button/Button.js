@@ -12,15 +12,18 @@ const Button = (props) => {
     const events = {
         onClick: props.onClick
     }
-    let svgIcon = ''
+    let svgIcon
+    let title
     if(icon === 'mod') {
         svgIcon = svgIcons.svgModify
+        title = 'Edit'
     } else 
     if(icon === 'del') {
         svgIcon = svgIcons.svgDelete
+        title = 'Delete'
     }
     return (
-        <button className={classes.join(' ')} type={props.buttonType || 'button'} {...events} disabled={props.disabled}>{svgIcon}{props.text}</button>
+        <button title={title} className={classes.join(' ')} type={props.buttonType || 'button'} {...events} disabled={props.disabled}>{svgIcon}{props.text}</button>
     )
 }
 

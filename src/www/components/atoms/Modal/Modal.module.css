@@ -2,4 +2,9 @@
     padding: 2.5rem;
     border-radius: .5rem;
     border-width: thin;
+    position: fixed;
+    width: 30rem;
+    height: auto;
+    max-height: 80vh;
+    top: 5rem;
 }

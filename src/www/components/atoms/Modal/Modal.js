@@ -1,23 +1,28 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
+import Overlay from './../Overlay'
+
 import styles from './Modal.module.css'
 
 const Modal = (props) => {
     const classes = [styles.wrapper]
     const content = (
-        <dialog className={classes.join(' ')}>
-            <h1>{props.heading}</h1>
-            <div>
+        <>
+            <h2>{props.heading}</h2>
+            <div className={`mar-b25`}>
                 {props.text}
             </div>
-        </dialog>
+        </>
     )
-    const active = props.open ? 'true' : 'false'
     return (
-        <dialog open={active}>
-            {content}
-        </dialog>
+        <Overlay open={props.open}>
+            <dialog className={classes.join(' ')} open={props.open}>
+                {content}
+                <button onClick={props.events.confirm}>Yes</button>
+                <button onClick={props.events.cancel}>No</button>
+            </dialog>
+        </Overlay>
     )
 }
 
@@ -26,7 +31,7 @@ Modal.propTypes = {
     heading: PropTypes.string,
     text: PropTypes.string.isRequired,
     open: PropTypes.bool,
-    events: PropTypes.arrayOf(PropTypes.func)
+    events: PropTypes.objectOf(PropTypes.func)
 }
 
 export default Modal

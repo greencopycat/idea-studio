@@ -32,3 +32,8 @@
     position: relative;
     padding: .7rem
 }
+
+.wrapper td.toolbox {
+    width: auto;
+    min-width: initial;
+}
