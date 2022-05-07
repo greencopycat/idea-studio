@@ -6,6 +6,9 @@
     overflow: hidden;
     padding: 1rem;
     transition: background-color 300ms linear;
+    position: sticky;
+    top: 0;
+    z-index: 1040;
 }
 
 .menu:hover {

@@ -14,7 +14,7 @@ import Dropdown from '../components/atoms/Dropdown'
 
 const View = (props) => {
     const [ideas, setIdeas] = useReducer((state, value) => value, [])
-    const [key, setKey] = useReducer((state, value) => value, null)
+    const [key, setKey] = useReducer((state, value) => value, 'author')
     const excludeFilter = ['attachments', 'url']
     let timeout
     useEffect(() => {
@@ -79,7 +79,6 @@ const View = (props) => {
                 <Row>
                     <Table data={{ideas: ideas}} />
                 </Row>
-                {!ideas.length ? <Row><Text elem={`default`} value={`No record found.`} /></Row> : null}
             </Panel>
         </Wrapper>
     )

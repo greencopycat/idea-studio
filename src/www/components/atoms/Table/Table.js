@@ -4,6 +4,8 @@ import PropTypes from 'prop-types'
 import styles from './Table.module.css'
 
 import Field from './../Field'
+import Row from './../../Layout/Row'
+import Text from './../Text'
 
 const fields = [{ name: 'author', required: true}, { name: 'idea', required: true}, { name: 'tags', required: true}, { name: 'description'}, { name: 'attachments'}, { name: 'url'}, { name: 'note'} ]
 
@@ -21,13 +23,12 @@ const Table = (props) => {
             fields.forEach((f) => {
                 rowData[f.name] = id[f.name] || ''
             })
-            rowData[`func`] = id[`func`]
-            rowData[`id`] = id[`_id`]
+            id[`func`] && (rowData[`func`] = id[`func`])
+            id[`_id`] && (rowData[`id`] = id[`_id`])
             renderData.push(rowData)
         })
         setTableData(renderData)
     }, [props])
-
     useEffect(() => {
         let headRow = []
         fields.forEach((ea, i) => {
@@ -57,7 +58,13 @@ const Table = (props) => {
                             }
                         }}
                     />
-                    value = <>{mod}{del}</>
+                    let hasMod = false
+                    let hasDel = false
+                    if(row[`func`]) {
+                        hasMod = row[`func`] && row[`func`].search("[m]") > -1
+                        hasDel = row[`func`] && row[`func`].search("[d]") > -1
+                    }
+                    (hasMod || hasDel) && (value = <>{hasMod ? mod : null}{hasDel ? del : null}</>)
                 } else 
                 if (key === 'id') {
 
@@ -90,6 +97,10 @@ const Table = (props) => {
                     {tableContent.current}
                 </tbody>
             </table>
+            {!(tableContent.current && tableContent.current.length)? 
+                <Row>
+                    <Text elem={`default`} value={`No record found.`} />
+                </Row> : null}
         </div>
     )
 }

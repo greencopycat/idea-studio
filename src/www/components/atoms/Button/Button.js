@@ -3,6 +3,8 @@ import PropTypes from 'prop-types'
 
 import styles from './Button.module.css'
 
+import svgIcons from '../../../assets/react-svg'
+
 const Button = (props) => {
     const classes = [styles.wrapper, 'font-regular']
     props.icon && classes.push(styles.icon)
@@ -10,8 +12,15 @@ const Button = (props) => {
     const events = {
         onClick: props.onClick
     }
+    let svgIcon = ''
+    if(icon === 'mod') {
+        svgIcon = svgIcons.svgModify
+    } else 
+    if(icon === 'del') {
+        svgIcon = svgIcons.svgDelete
+    }
     return (
-        <button className={classes.join(' ')} type={props.buttonType || 'button'} {...events} disabled={props.disabled}>{icon}{props.text}</button>
+        <button className={classes.join(' ')} type={props.buttonType || 'button'} {...events} disabled={props.disabled}>{svgIcon}{props.text}</button>
     )
 }
 

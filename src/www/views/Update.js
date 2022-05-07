@@ -15,7 +15,13 @@ import Notifier from './../components/atoms/Notifier'
 const Update = (props) => {
     const [response, setResponse] = useState()
     const [arr, setArr] = useReducer((state, val)=> val, [])
-
+    const [key, setKey] = useReducer((state, value) => value, 'author')
+    const excludeFilter = ['attachment', 'url']
+    let timeout
+    const filterByFields = FIELDS.filter(ea => !(excludeFilter.includes(ea.name)))
+    const dropdownOptions = filterByFields.map((ea, i) => {
+        return {text: ea.name, value: ea.name.replace(/\s/g, ''), default: i===0}
+    })
     useEffect(() => {
         let value
         MS.get(`${DBHOST.DEV}${ENDPOINT.IDEA_GET}`)
@@ -37,8 +43,44 @@ const Update = (props) => {
             <Panel>
                 <Text elem={`heading`} level={1} value={`Update ideas`} />
                 <Text elem={`default`} classes={`mar-b25`} value={`Couldn't make up your mind?`} />
+                <div className={`inline-flex align-items-c`}>
+                    <Text 
+                        classes={`inline-block mar-b10`}
+                        elem={`label`} 
+                        value={`Filtered by: `}
+                    />
+                    <Dropdown 
+                        classes={`font-regular mar-b10 mar-l10`}
+                        options={dropdownOptions} 
+                        onSelect={(evt) => { setKey(evt.currentTarget.value) }}
+                    />
+                    <Field elem={`inputbox`} 
+                        type={`search`} 
+                        classes={`search mar-b10 mar-t0 mar-l10`}
+                        placeholder={`filter`}
+                        display={`inline-block`}
+                        callbacks={{
+                            onChange: (evt) => {
+                                timeout && clearTimeout(timeout)
+                                const $tar = evt.currentTarget
+                                const val = $tar.value
+
+                                const query = val ? `?${key}=` + val : ''
+                                timeout = setTimeout(async () => {
+                                    await MS.get(ENDPOINT.IDEA_GET + query)
+                                        .then((data) => {
+                                            setArr(data.body)
+                                        })
+                                        .catch((err) => {
+                                            console.error('[get by %s] -> ', key, err)
+                                        })
+                                }, 800)
+                            }
+                        }}
+                    />
+                </div>
                 <Table data={{ideas: arr}} page={`update`} />
-                <Row classes={`mar-b25`}>
+                {/* <Row classes={`mar-b25`}>
                     <Field elem={`button`} text={`Modify`} type={`submit`} 
                         callbacks={{
                             onClick: (() => { 
@@ -58,7 +100,7 @@ const Update = (props) => {
                     <Row classes={`${response.type === 'error' ? 'error' : ''}`}>
                         <Notifier type={Response.type} message={Response.message} />
                     </Row> : null
-                }
+                } */}
             </Panel>
         </Wrapper>
     )

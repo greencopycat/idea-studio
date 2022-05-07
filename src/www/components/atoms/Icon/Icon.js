@@ -1,11 +1,11 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 
-import SVG from './../../../constant/icons'
+import svgIcons from './../../../assets/react-svg/'
 
 const Icon = (props) => {
     const name = props.name
-    let icon = SVG[name]
+    let icon = svgIcons[name]
     return (
         {icon}
     )

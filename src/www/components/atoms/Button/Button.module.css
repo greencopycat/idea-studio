@@ -3,7 +3,6 @@
     border-radius: .5rem;
     box-shadow: none;
     background-color: var(--menu-bg);
-    padding: .5rem 1rem;
     height: 3rem;
     transition: color 500ms linear 10ms, background-color 500ms linear 10ms;
     color: var(--white);
@@ -11,10 +10,12 @@
 
 .wrapper:not(.icon) {
     min-width: 15rem;
+    padding: .5rem 1rem;
 }
 
 .wrapper.icon {
     width: 3rem;
+    padding: 0rem;
 }
 
 .wrapper:not([disabled]):hover {
