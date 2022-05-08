@@ -156,3 +156,7 @@
 .align-items-c {
     align-items: center;
 }
+
+.capitalize {
+    text-transform: capitalize;
+}

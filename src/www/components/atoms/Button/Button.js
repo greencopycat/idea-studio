@@ -6,7 +6,8 @@ import styles from './Button.module.css'
 import svgIcons from '../../../assets/react-svg'
 
 const Button = (props) => {
-    const classes = [styles.wrapper, 'font-regular']
+    const defaultClass = props.type === 'tag' ? styles.tag : styles.wrapper
+    const classes = [defaultClass, 'font-regular']
     props.icon && classes.push(styles.icon)
     const icon = props.icon
     const events = {
@@ -31,7 +32,7 @@ Button.propTypes = {
     disabled: PropTypes.bool,
     icon: PropTypes.oneOf(['mod', 'del']),
     onclick: PropTypes.func,
-    type: PropTypes.oneOf(['button', 'submit', 'reset']),
+    type: PropTypes.oneOf(['button', 'submit', 'reset', 'tag']),
 }
 
 export default Button

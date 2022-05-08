@@ -7,7 +7,9 @@ import CheckBox from './../CheckBox'
 import Dropdown from './../Dropdown'
 import InputBox from './../InputBox'
 import RadioBox from './../RadioBox'
+import TextBox from './../TextBox'
 import Text from './../Text'
+import Tags from './../Tags'
 
 // Styles
 import styles from './Field.module.css'
@@ -16,8 +18,10 @@ const propForFields = {
     BUTTON: ['type', 'label', 'callbacks', 'text', 'callbacks', 'disabled', 'classes', 'icon'],
     CHECKBOX: [],
     DROPDOWN: ['label'],
-    INPUTBOX: ['type', 'text', 'label', 'placeholder', 'callbacks', 'id', 'name', 'disabled', 'pattern', 'accept', 'classes', 'data'],
-    RADIOBOX: []
+    INPUTBOX: ['type', 'text', 'label', 'placeholder', 'callbacks', 'id', 'name', 'disabled', 'pattern', 'accept', 'classes', 'data', 'input'],
+    RADIOBOX: [],
+    TEXTBOX: ['input', 'classes', 'id', 'name', 'disabled', 'callbacks'],
+    TAGS: ['input', 'classes', 'id', 'name', 'callbacks'],
 }
 
 const getProps = (des, propNames, props) => {
@@ -32,6 +36,9 @@ const getProps = (des, propNames, props) => {
             }
         }
     })
+    if (des.type === 'file') {
+        des[`multiple`] = true
+    }
     return des
 }
 
@@ -63,19 +70,25 @@ const Field = (props) => {
                 break
             case 'CHECKBOX':
                 Component = CheckBox
-                // classes.push(styles.field)
+                props.formField && classes.push(styles.field)
                 break
             case 'DROPDOWN':
                 Component = Dropdown
-                // classes.push(styles.field)
+                props.formField && classes.push(styles.field)
                 break
             case 'INPUTBOX':
                 Component = InputBox
-                // classes.push(styles.field)
+                props.formField && classes.push(styles.field)
                 break
             case 'RADIOBOX': 
                 Component = RadioBox
-                // classes.push(styles.field)
+                props.formField && classes.push(styles.field)
+                break
+            case 'TEXTBOX': 
+                Component = TextBox
+                break
+            case 'TAGS':
+                Component = Tags
                 break
             default:
                 break
@@ -98,9 +111,10 @@ Field.propTypes = {
     disabled: PropTypes.bool,
     display: PropTypes.oneOf(['inline', 'block', 'inline-block']),
     download: PropTypes.bool,
-    elem: PropTypes.oneOf(['button', 'checkbox', 'dropdown', 'inputbox', 'radiobox']),
+    elem: PropTypes.oneOf(['button', 'checkbox', 'dropdown', 'inputbox', 'radiobox', 'textbox', 'tags']),
     icon: PropTypes.oneOf(['del', 'mod']),
     id: PropTypes.string,
+    input: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     label: PropTypes.string,
     maxlength: PropTypes.number,
     name: PropTypes.string,
@@ -109,6 +123,7 @@ Field.propTypes = {
     require: PropTypes.bool,
     text: PropTypes.string,
     type: PropTypes.string,
+    formField: PropTypes.bool
 }
 
 export default Field

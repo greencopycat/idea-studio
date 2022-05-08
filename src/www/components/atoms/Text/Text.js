@@ -59,6 +59,7 @@ const Text = (props) => {
             MyText = <div role="heading" aria-level={props.level} className={`heading-${props.level}`}>{val}</div>
             break
         case 'label':
+            classes.push(`capitalize`)
             MyText = <label className={classes.join(' ')}>{val}</label>
             break
         case 'description':

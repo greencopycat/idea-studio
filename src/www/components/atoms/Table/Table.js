@@ -11,7 +11,15 @@ import Text from './../Text'
 import Modal from './../Modal'
 import MS from './../../../services/microservices'
 
-const fields = [{ name: 'author', required: true}, { name: 'idea', required: true}, { name: 'tags', required: true}, { name: 'description'}, { name: 'attachments'}, { name: 'url'}, { name: 'note'} ]
+const fields = [
+    { name: 'author', required: true}, 
+    { name: 'idea', required: true}, 
+    { name: 'tags', elem: 'tags', required: true }, 
+    { name: 'description', elem: 'textbox'}, 
+    { name: 'attachments'}, 
+    { name: 'url'}, 
+    { name: 'note', elem: 'textbox'} 
+]
 
 const Table = (props) => {
     const [tableData, setTableData] = useReducer((state, val) => val, [])
@@ -52,7 +60,7 @@ const Table = (props) => {
                 rowData[f.name] = id[f.name] || ''
             })
             id[`func`] && (rowData[`func`] = id[`func`])
-            id[`_id`] && (rowData[`id`] = id[`_id`])
+            id[`_id`] && (rowData[`_id`] = id[`_id`])
             renderData.push(rowData)
         })
         setTableData(renderData)
@@ -62,7 +70,7 @@ const Table = (props) => {
         let headRow = []
         fields.forEach((ea, i) => {
             const {name, required} = ea
-            headRow.push(<th key={`${name}_th_${i}`}>{name.toUpperCase()}</th>)
+            headRow.push(<th key={`${name}_th_${i}`}>{name.toUpperCase()}{(props.page === 'addnew' && required)? <super>*</super> : null}</th>)
         })
         tableHeaders.current = (<tr>{headRow}</tr>)
         let rowData = []
@@ -71,7 +79,7 @@ const Table = (props) => {
             Object.keys(row).forEach((key, i) => {
                 let value = ''
                 let cellstyle = ''
-                if (key !== 'id') {
+                if (key !== '_id') {
                     if(!row[key].$$typeof && typeof row[key] === 'object') {
                         value = row[key].join(', ')
                     } else {
@@ -81,11 +89,9 @@ const Table = (props) => {
                 if (props.page && props.page === 'addnew') {
                     cellstyle = 'pad-0'
                 }
-                key !== 'id' && cellData.push(<td className={cellstyle} key={`${key}_${i}`}>{value}</td>)
+                key !== '_id' && cellData.push(<td className={cellstyle} key={`${key}_${i}`}>{value}</td>)
             })
-            if (props.page === 'update') {
-            }
-            rowData.push(<tr key={`${j}__${row.id}`}>{cellData}{props.page === 'update' ? toolbox(row[`id`]): null}</tr>)
+            rowData.push(<tr key={`${j}__${row.id}`}>{cellData}{props.page === 'update' ? toolbox(row[`_id`]): null}</tr>)
         })
         tableContent.current = rowData
         forceUpdate(!update)
@@ -93,13 +99,21 @@ const Table = (props) => {
 
     const deleteTheRecord = (id) => {
         MS.remove(`${DBHOST.Dev}${ENDPOINT.IDEA_DEL}`, {id})
-            .then(data => {
+            .then( data => {
                 const callbacks = props.callbacks
                 setModalActive(false)
-                if (callbacks && callbacks.setResponse) {
-                    callbacks.setResponse({
-                        message: data.message + ' [id: ' + id + ']'
-                    })
+                if (callbacks) {
+                    if (callbacks.setArr) {
+                        const newTableData = tableData.filter((row) => {
+                            return (row._id !== id) 
+                        })
+                        callbacks.setArr(newTableData)
+                    }
+                    if (callbacks.setResponse) {
+                        callbacks.setResponse({
+                            message: data.message + ' [id: ' + id + ']'
+                        })
+                    }
                 }
             })
             .catch(err => {

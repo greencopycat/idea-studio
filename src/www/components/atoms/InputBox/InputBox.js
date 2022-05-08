@@ -1,15 +1,20 @@
-import React from 'react'
+import React, { useReducer, useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import styles from './InputBox.module.css'
 
 const InputBox = (props) => {
     // value, pattern, type, placeholder
+    const [value, setValue] = useReducer((s,v) => v, '')
     const events = {
         onBlur: props.onBlur,
         onChange: props.onChange,
         onClick: props.onClick,
     }
+    
+    useEffect(() => {
+        props.input && setValue(props.input)
+    })
 
     const classes = ['font-regular', styles.wrapper]
     if (props.classes) {
@@ -29,7 +34,9 @@ const InputBox = (props) => {
                 name={props.name}
                 pattern={props.pattern}
                 placeholder={props.placeholder} 
-                type={props.type} 
+                type={props.type !== 'tag' ? props.type : null} 
+                multiple={props.multiple}
+                defaultValue={value}
                 {...props.data}
             />
         </>
@@ -44,6 +51,7 @@ InputBox.propTypes = {
     download: PropTypes.bool,
     // events: PropTypes.objectOf(PropTypes.func),
     id: PropTypes.string,
+    input: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     name: PropTypes.string,
     onBlur: PropTypes.func,
     onChange: PropTypes.func,

@@ -111,6 +111,9 @@ Route.get('/setfree', (req, res, next) => {
                 '$regex' : new RegExp(req.query[q], 'ig')
             })
         })
+        if (req.query[`_id`]) {
+            query[`_id`] = req.query[`_id`]
+        }
     }
     Bubbles.find(query, '-__v')
     .sort(sortby)

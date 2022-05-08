@@ -88,6 +88,7 @@ const Update = (props) => {
                 <Table data={{ideas: arr}} page={`update`} 
                     callbacks={{
                         setResponse,
+                        setArr
                     }}
                 />
                 {response.message ? 

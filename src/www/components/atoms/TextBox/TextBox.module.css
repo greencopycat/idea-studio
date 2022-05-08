@@ -1,0 +1,7 @@
+.wrapper {
+    border-radius: .5rem;
+    display: block;
+    min-height: 12rem;
+    height: auto;
+    overflow: auto;
+}

@@ -1,5 +1,3 @@
-import { ENDPOINT } from "./../constant/constant"
-
 const api = async (endpoint, query) => {
     return (await fetch(endpoint, query)).json()
 }
@@ -47,7 +45,6 @@ const post = async (endpoint, query, callback) => {
     }
 }
 const remove = async (endpoint, query, callback) => {
-    console.log('[dev] -> id -> ', query)
     if (!(query && query.id)) {
         return Promise.reject({status: 400, message: 'Please provide data.'})
     } else {
@@ -55,7 +52,7 @@ const remove = async (endpoint, query, callback) => {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
         }
-        return await api(ENDPOINT.IDEA_DEL, {
+        return await api(endpoint, {
             method: 'POST',
             body: JSON.stringify(query),
             headers,
