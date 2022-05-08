@@ -21,7 +21,9 @@ const InputBox = (props) => {
         const cls = props.classes.split(' ')
         classes.push(...cls)
     }
-    // if (props.call)
+    if (props.formField) {
+        classes.push(styles.field)
+    }
     return (
         <>
             <input 
@@ -49,7 +51,7 @@ InputBox.propTypes = {
     data: PropTypes.object,
     disabled: PropTypes.bool,
     download: PropTypes.bool,
-    // events: PropTypes.objectOf(PropTypes.func),
+    formField: PropTypes.bool,
     id: PropTypes.string,
     input: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     name: PropTypes.string,

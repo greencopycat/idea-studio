@@ -28,6 +28,20 @@ input[type=search].wrapper {
     border-radius: .2rem;
 }
 
+.wrapper.field:not([type=file], [type=search]) {
+    transition: background-color 500ms linear 50ms;
+    border: none;
+    background-color: var(--gray-very-light);
+    padding: .5rem 1rem;
+    min-width: 2rem;
+    width: auto;
+}
+
+.wrapper.field:not([type=file], [type=search]):focus {
+    background-color: transparent;
+    transition: background-color 500ms linear 50ms;
+}
+
 .wrapper.pad-0 {
     padding: 0rem;
 }

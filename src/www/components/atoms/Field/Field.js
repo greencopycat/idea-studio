@@ -18,9 +18,9 @@ const propForFields = {
     BUTTON: ['type', 'label', 'callbacks', 'text', 'callbacks', 'disabled', 'classes', 'icon'],
     CHECKBOX: [],
     DROPDOWN: ['label'],
-    INPUTBOX: ['type', 'text', 'label', 'placeholder', 'callbacks', 'id', 'name', 'disabled', 'pattern', 'accept', 'classes', 'data', 'input'],
+    INPUTBOX: ['type', 'text', 'label', 'placeholder', 'callbacks', 'id', 'name', 'disabled', 'pattern', 'accept', 'classes', 'data', 'input', 'formField'],
     RADIOBOX: [],
-    TEXTBOX: ['input', 'classes', 'id', 'name', 'disabled', 'callbacks'],
+    TEXTBOX: ['input', 'classes', 'id', 'name', 'disabled', 'callbacks', 'formField'],
     TAGS: ['input', 'classes', 'id', 'name', 'callbacks'],
 }
 
@@ -45,23 +45,26 @@ const getProps = (des, propNames, props) => {
 const Field = (props) => {
     let Component
     let fieldProps = {}
-    const classes = []
+    const wrapperClasses = []
     if (props.display) {
         switch(props.display) {
             case 'inline': 
-                classes.push('inline')
+                wrapperClasses.push('inline')
                 break
             case 'block':
-                classes.push('block')
+                wrapperClasses.push('block')
                 break
             case 'inline-block':
-                classes.push('inline-block')
+                wrapperClasses.push('inline-block')
                 break
             default:
                 break
         }
     }
-    props.classes && classes.concat(props.classes.split(' '))
+    if (props.wrapperClasses) {
+        const wrapper = props.wrapperClasses.split(' ')
+        wrapperClasses.push(wrapper)
+    }
     if (props.elem) {
         const elem = props.elem.toUpperCase()
         switch(elem) {
@@ -70,19 +73,19 @@ const Field = (props) => {
                 break
             case 'CHECKBOX':
                 Component = CheckBox
-                props.formField && classes.push(styles.field)
+                props.formField && wrapperClasses.push(styles.field)
                 break
             case 'DROPDOWN':
                 Component = Dropdown
-                props.formField && classes.push(styles.field)
+                props.formField && wrapperClasses.push(styles.field)
                 break
             case 'INPUTBOX':
                 Component = InputBox
-                props.formField && classes.push(styles.field)
+                props.formField && wrapperClasses.push(styles.field)
                 break
             case 'RADIOBOX': 
                 Component = RadioBox
-                props.formField && classes.push(styles.field)
+                props.formField && wrapperClasses.push(styles.field)
                 break
             case 'TEXTBOX': 
                 Component = TextBox
@@ -96,8 +99,8 @@ const Field = (props) => {
         fieldProps = getProps({}, propForFields[elem], props)
     }
     return (
-        <div className={classes.join(' ')}>
-            {props.label ? <Text elem={`label`} value={props.label} /> : null}
+        <div className={wrapperClasses.join(' ')}>
+            {props.label ? <Text elem={`label`} classes={`${props.formField ? 'uppercase strong': ''}`} value={props.label} /> : null}
             {Component && <Component {...fieldProps} />}
         </div>
     )
@@ -123,7 +126,8 @@ Field.propTypes = {
     require: PropTypes.bool,
     text: PropTypes.string,
     type: PropTypes.string,
-    formField: PropTypes.bool
+    formField: PropTypes.bool,
+    wrapperClasses: PropTypes.string,
 }
 
 export default Field

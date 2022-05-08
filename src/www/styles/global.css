@@ -5,6 +5,7 @@
     --dark-red: rgba(100, 20, 20, .75);
     --gray: rgba(150, 150, 150, .75);
     --gray-light: rgba(225, 225, 225, .75);
+    --gray-very-light: rgba(245, 245, 245, .75);
     --white: rgba(250, 250, 250, .75);
     --blue: rgba(20, 20, 150, .75);
 }
@@ -159,4 +160,12 @@
 
 .capitalize {
     text-transform: capitalize;
+}
+
+.uppercase {
+    text-transform: uppercase;
+}
+
+.strong {
+    font-weight: 600;
 }

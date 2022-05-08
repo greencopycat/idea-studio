@@ -12,7 +12,9 @@ import Text from './../components/atoms/Text'
 import Field from './../components/atoms/Field'
 
 const Modify = (props) => {
-    const [entry, setEntry] = useState({})
+    let timeout
+    const [entry, setEntry] = useReducer((s,v)=> v, {})
+    // const [entry, setEntry] = useState({})
     const { id } = useParams()
 
     useEffect(() => {
@@ -27,11 +29,21 @@ const Modify = (props) => {
             })
     }, [props])
 
-    const htmlFields = () => {
+    const handleChange = (evt) => {
+        const $tar = evt.currentTarget
+        const val = $tar.value
+        const name = $tar.name
+        const newEntry = {...entry, [name]: val} 
+        timeout && clearTimeout(timeout)
+        timeout = setTimeout((en) => { 
+            setEntry(en) 
+        }, 500, newEntry)
     }
 
-    const handleChange = (evt) => {
-        console.log('[evt] -> ', evt)
+    const handleSubmit = (evt) => {
+        /*
+            MS.update
+         */
     }
 
     return (
@@ -44,12 +56,14 @@ const Modify = (props) => {
                     let elm = f.elem || 'inputbox'
                     return (
                         <Row key={f.name}>
-                            <Field 
-                                classes={`mar-b15 font-regular`} 
+                            <Field
+                                wrapperClasses={`mar-b20`}
+                                classes={`font-regular`} 
                                 label={`${f.name}${f.required?'*': ''}`} 
                                 elem={elm}
                                 formField={true}
                                 input={val}
+                                name={f.name}
                                 type={f.name === 'attachments' ? 'file' : null} 
                                 callbacks={{
                                     onChange: handleChange

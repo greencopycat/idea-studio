@@ -12,7 +12,7 @@ const Tags = (props) => {
             <ul>
                 {tags && tags.map((t) => {
                     return (
-                        <li className={`inline-block mar-l15`} key={t} name={t}>
+                        <li className={`inline-block mar-l15 mar-b10`} key={t} name={t}>
                             <Button type={`tag`} text={t} />
                         </li>
                     )
@@ -20,8 +20,9 @@ const Tags = (props) => {
                 <li className={`inline-block mar-l15`}>
                     <InputBox 
                         classes={`pad-10`}
-                        placeholder={`Add new tag`}
+                        placeholder={`New tag`}
                         type={`tag`}
+                        formField={true}
                     />
                 </li>
             </ul>

@@ -70,7 +70,7 @@ const Table = (props) => {
         let headRow = []
         fields.forEach((ea, i) => {
             const {name, required} = ea
-            headRow.push(<th key={`${name}_th_${i}`}>{name.toUpperCase()}{(props.page === 'addnew' && required)? <super>*</super> : null}</th>)
+            headRow.push(<th key={`${name}_th_${i}`}>{name.toUpperCase()}{(props.page === 'addnew' && required)? <small><sup>*</sup></small> : null}</th>)
         })
         tableHeaders.current = (<tr>{headRow}</tr>)
         let rowData = []

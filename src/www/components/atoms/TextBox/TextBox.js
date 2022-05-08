@@ -9,6 +9,9 @@ const TextBox = (props) => {
         const propClass = props.classes.split(' ')
         classes.push(...propClass)
     }
+    if (props.formField) {
+        classes.push(styles.field)
+    }
     return (
         <textarea 
             className={classes.join(' ')}
@@ -22,6 +25,7 @@ TextBox.propTypes = {
     callbacks: PropTypes.objectOf(PropTypes.func),
     classes: PropTypes.string,
     disabled: PropTypes.bool,
+    formField: PropTypes.bool,
     id: PropTypes.string,
     input: PropTypes.string,
     name: PropTypes.string,

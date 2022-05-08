@@ -1,7 +1,24 @@
-.wrapper {
+.wrapper:not(.field) {
     border-radius: .5rem;
     display: block;
     min-height: 12rem;
     height: auto;
     overflow: auto;
+}
+
+.wrapper.field {
+    display: block;
+    min-height: 20rem;
+    height: auto;
+    border-radius: .3rem;
+    padding: .5rem 1rem;
+    border-color: transparent;
+    background-color: var(--gray-very-light);
+    transition: background-color 500ms linear 50ms;
+    width: 100%;
+}
+
+.wrapper.field:focus {
+    transition: background-color 500ms linear 50ms;
+    background-color: transparent;
 }
