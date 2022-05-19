@@ -45,6 +45,23 @@
     transition: margin-top 300ms linear, background-color 300ms linear;
 }
 
+.menu:hover > a {
+    font-size: initial;
+}
+
+.menu:hover > :global(.active) {
+    color: var(--gray-very-light);
+    border-bottom-color: var(--gray-very-light);
+    border-bottom-width: .1rem;
+}
+
+.menu > :global(.active)  {
+    cursor: default;
+    pointer-events: none;
+    color: white;
+    text-shadow: 2px 2px .3rem var(--black);
+}
+
 @keyframes hidemenu {
     0% {
         margin-top: 0rem;

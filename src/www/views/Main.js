@@ -10,6 +10,7 @@ import View from './View'
 import Visual from './Visual'
 import Missing from './Missing'
 import Modify from './Modify'
+import Tags from './Tags'
 import Hero from './../components/atoms/Hero'
 import Update from './Update'
 import Footer from './../components/Layout/Footer/Footer'
@@ -17,7 +18,7 @@ import Footer from './../components/Layout/Footer/Footer'
 class Main extends React.Component {
     render() {
         const menuClasses = [styles.menu]
-
+        const linkClasses = [`font-regular`]
         const footerProps = {
             feed: {
                 copyright: {
@@ -30,11 +31,54 @@ class Main extends React.Component {
             <>
                 <Router>
                     <div className={menuClasses.join(' ')}>
-                        <NavLink className={`font-regular`} to={`/`}>Home</NavLink>
-                        <NavLink className={`font-regular`} to={`/view`}>View</NavLink>
-                        <NavLink className={`font-regular`} to={`/update`}>Update</NavLink>
-                        <NavLink className={`font-regular`} to={`/addnew`}>New</NavLink>
-                        <NavLink className={`font-regular`} to={`/populate`}>Bulk</NavLink>
+                        <NavLink className={({isActive}) => { 
+                            const newClasses = []
+                            newClasses.push(...linkClasses)
+                            if (isActive) {
+                                newClasses.push('active')
+                            }
+                            return newClasses.join(' ')
+                        }} to={`/`}>Home</NavLink>
+                        <NavLink className={({isActive}) => { 
+                            const newClasses = []
+                            newClasses.push(...linkClasses)
+                            if (isActive) {
+                                newClasses.push('active')
+                            }
+                            return newClasses.join(' ')
+                        }} to={`/view`}>View</NavLink>
+                        <NavLink className={({isActive}) => { 
+                            const newClasses = []
+                            newClasses.push(...linkClasses)
+                            if (isActive) {
+                                newClasses.push('active')
+                            }
+                            return newClasses.join(' ')
+                        }} to={`/update`}>Update</NavLink>
+                        <NavLink className={({isActive}) => { 
+                            const newClasses = []
+                            newClasses.push(...linkClasses)
+                            if (isActive) {
+                                newClasses.push('active')
+                            }
+                            return newClasses.join(' ')
+                        }} to={`/addnew`}>New</NavLink>
+                        <NavLink className={({isActive}) => { 
+                            const newClasses = []
+                            newClasses.push(...linkClasses)
+                            if (isActive) {
+                                newClasses.push('active')
+                            }
+                            return newClasses.join(' ')
+                        }} to={`/populate`}>Bulk</NavLink>
+                        <NavLink className={({isActive}) => { 
+                            const newClasses = []
+                            newClasses.push(...linkClasses)
+                            if (isActive) {
+                                newClasses.push('active')
+                            }
+                            return newClasses.join(' ')
+                        }} to={`/tags`}>Tags</NavLink>
                         {/* <NavLink className={`font-regular`} to={`/visualization`}>Visualization</NavLink> */}
                     </div>
                     <Hero classes={`mar-b25`} size={`small`} />
@@ -45,6 +89,7 @@ class Main extends React.Component {
                         <Route path={`/update/:id`} element={<Modify />} />
                         <Route path={`/addnew`} element={<AddNew />} />
                         <Route path={`/populate`} element={<Populate />} />
+                        <Route path={`/tags`} element={<Tags />} />
                         {/* <Route path={`/visualization`} element={<Visual/>} /> */}
                         <Route path={`/*`} element={<Missing />} />
                     </Routes>
