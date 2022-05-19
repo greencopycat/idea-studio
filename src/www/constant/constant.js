@@ -6,7 +6,8 @@ const ENDPOINT = {
     IDEA_ADD: '/bubble/add',
     IDEA_POPULATE: '/bubble/populate',
     IDEA_TAGS: '/bubble/tags',
-    IDEA_DEL: '/bubble/remove'
+    IDEA_DEL: '/bubble/remove',
+    IDEA_UPDATE: '/bubble/update'
 }
 
 export {

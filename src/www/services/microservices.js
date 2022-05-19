@@ -69,14 +69,38 @@ const remove = async (endpoint, query, callback) => {
         })
     }
 }
-const put = async (endpoint, query, callback) => {
 
+const update = async (endpoint, query) => {
+    if (!query || !Object.keys(query).length) {
+        return Promise.reject({status: 400, message: 'Please provide data.'}) 
+    } else {
+        const headers = {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }
+        return await api(endpoint, {
+            method: 'POST',
+            body: JSON.stringify(query),
+            headers,
+        })
+        .then(data => {
+            if(data.status >= 400) {
+                return Promise.reject({status: 400, message: data.message})
+            } else {
+                return Promise.resolve({status: 200, message: data.message})
+            }
+        })
+        .catch(err => {
+            return Promise.reject(err)
+        })
+    }
 }
+
 const MS = {
     get, 
     post,
     remove,
-    put,
+    update,
 }
 
 export default MS

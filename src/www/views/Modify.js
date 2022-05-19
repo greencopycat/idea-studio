@@ -13,8 +13,8 @@ import Field from './../components/atoms/Field'
 
 const Modify = (props) => {
     let timeout
+    const [response, setResponse] = useReducer((s,v)=>v, {})
     const [entry, setEntry] = useReducer((s,v)=> v, {})
-    // const [entry, setEntry] = useState({})
     const { id } = useParams()
 
     useEffect(() => {
@@ -40,10 +40,40 @@ const Modify = (props) => {
         }, 500, newEntry)
     }
 
-    const handleSubmit = (evt) => {
-        /*
-            MS.update
-         */
+    const handleTagClick = (evt) => {
+        const $tar = evt.currentTarget
+        const val = $tar.innerText
+        let newTags = entry.tags
+        const index = newTags.indexOf(val)
+        if (index > -1) {
+            newTags.splice(index, 1)
+            setEntry({...entry, tags: newTags})
+        }
+    }
+
+    const handleTagEnter = (evt) => {
+        const $tar = evt.currentTarget
+        if (evt.key === 'Enter' || evt.keyCode === 13) {
+            const val = $tar.value
+            const newTags = entry.tags
+            newTags.push(val)
+            setEntry({...entry, tags: newTags})
+            $tar.value = ''
+        }
+    }
+
+    const handleSubmit = async (evt) => {
+        const newEntry = entry
+        delete newEntry.created
+        await MS.update(ENDPOINT.IDEA_UPDATE, newEntry)
+            .then((data) => {
+                console.log('[dev] -> ', data)
+                setResponse({type: 'success', message: data.message})
+                return data
+            })
+            .catch((err) => {
+                return err
+            })
     }
 
     return (
@@ -54,6 +84,13 @@ const Modify = (props) => {
                 {FIELDS.map((f) => {
                     let val = entry[f.name] || ''
                     let elm = f.elem || 'inputbox'
+                    const events = {}
+                    if (f.name === "tags") {
+                        events.onClick = handleTagClick
+                        events.onKeyUp = handleTagEnter
+                    } else {
+                        events.onChange = handleChange
+                    }
                     return (
                         <Row key={f.name}>
                             <Field
@@ -65,16 +102,20 @@ const Modify = (props) => {
                                 input={val}
                                 name={f.name}
                                 type={f.name === 'attachments' ? 'file' : null} 
-                                callbacks={{
-                                    onChange: handleChange
-                                }}
+                                callbacks={events}
                                 />
                         </Row>
                     )
                 })}
 
                 <Row>
-                    <Field elem={`button`} text={`Update`} type={`submit`} />
+                    <Field elem={`button`} text={`Update`} type={`submit`} 
+                        callbacks={
+                            {
+                                onClick: handleSubmit
+                            }
+                        }
+                    />
                     <Field elem={`button`} text={`Cancel`} type={`reset`} />
                 </Row>
             </Panel>

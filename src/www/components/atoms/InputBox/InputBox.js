@@ -10,6 +10,7 @@ const InputBox = (props) => {
         onBlur: props.onBlur,
         onChange: props.onChange,
         onClick: props.onClick,
+        onKeyUp: props.onKeyUp
     }
     
     useEffect(() => {
@@ -58,6 +59,7 @@ InputBox.propTypes = {
     onBlur: PropTypes.func,
     onChange: PropTypes.func,
     onClick: PropTypes.func,
+    onKeyUp: PropTypes.func,
     pattern: PropTypes.string,
     placeholder: PropTypes.string,
     row: PropTypes.number,

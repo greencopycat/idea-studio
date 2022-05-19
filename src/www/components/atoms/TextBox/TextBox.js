@@ -17,12 +17,14 @@ const TextBox = (props) => {
             className={classes.join(' ')}
             defaultValue={props.input}
             disabled={props.disabled}
+            onChange={props.onChange}
+            name={props.name}
         />
     )
 }
 
 TextBox.propTypes = {
-    callbacks: PropTypes.objectOf(PropTypes.func),
+    onChange: PropTypes.func,
     classes: PropTypes.string,
     disabled: PropTypes.bool,
     formField: PropTypes.bool,

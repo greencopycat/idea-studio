@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 
 import styles from './Tags.module.css'
@@ -13,7 +13,11 @@ const Tags = (props) => {
                 {tags && tags.map((t) => {
                     return (
                         <li className={`inline-block mar-l15 mar-b10`} key={t} name={t}>
-                            <Button type={`tag`} text={t} />
+                            <Button 
+                                type={`tag`} 
+                                text={t} 
+                                onClick={props.onClick} 
+                            />
                         </li>
                     )
                 })}
@@ -23,6 +27,7 @@ const Tags = (props) => {
                         placeholder={`New tag`}
                         type={`tag`}
                         formField={true}
+                        onKeyUp={props.onKeyUp}
                     />
                 </li>
             </ul>
@@ -31,7 +36,9 @@ const Tags = (props) => {
 }
 
 Tags.propTypes = {
-    input: PropTypes.array
+    input: PropTypes.array,
+    onClick: PropTypes.func.isRequired,
+    onKeyUp: PropTypes.func.isRequired
 }
 
 export default Tags

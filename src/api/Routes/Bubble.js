@@ -126,9 +126,28 @@ Route.get('/setfree', (req, res, next) => {
     })
 })
 
+Route.post('/update', (req, res, next) => {
+    res.set('Access-Control-Allow-Origin', '*')
+    const query = {}
+    if (req.body) {
+        const id = req.body._id
+        const obj = req.body
+        delete obj._id
+        const abc = Bubbles.findOneAndUpdate({_id: id}, obj, {new: true}).exec((err, result) => {
+            if (err) {
+                console.log('[err] -> ', err)
+            } else 
+            if (result) {
+                // console.log('[find] -> ', result)
+                // need to handle this
+            }
+        })
+    }
+})
+
 Route.post('/remove', (req, res, next) => {
     res.set('Access-Control-Allow-Origin', '*')
-    const query = {};
+    const query = {}
     if (req.body) {
         const id = req.body.id
         Bubbles.deleteOne({_id: id}, (err, result) => {
