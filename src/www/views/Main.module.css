@@ -1,6 +1,6 @@
 .menu {
     height: auto;
-    background-color: rgba(150,20,20,.75);
+    background-color: rgba(150,20,20,.95);
     width: 100%;
     color: white;
     overflow: hidden;
@@ -12,7 +12,7 @@
 }
 
 .menu:hover {
-    background-color: rgba(0, 0, 0, .75);
+    background-color: rgba(0, 0, 0, .95);
     transition: background-color 300ms linear;
 }
 

@@ -10,7 +10,7 @@ import View from './View'
 import Visual from './Visual'
 import Missing from './Missing'
 import Modify from './Modify'
-import Tags from './Tags'
+import TagView from './TagView'
 import Hero from './../components/atoms/Hero'
 import Update from './Update'
 import Footer from './../components/Layout/Footer/Footer'
@@ -89,7 +89,7 @@ class Main extends React.Component {
                         <Route path={`/update/:id`} element={<Modify />} />
                         <Route path={`/addnew`} element={<AddNew />} />
                         <Route path={`/populate`} element={<Populate />} />
-                        <Route path={`/tags`} element={<Tags />} />
+                        <Route path={`/tags`} element={<TagView />} />
                         {/* <Route path={`/visualization`} element={<Visual/>} /> */}
                         <Route path={`/*`} element={<Missing />} />
                     </Routes>

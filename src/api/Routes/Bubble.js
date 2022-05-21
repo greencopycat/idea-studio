@@ -186,7 +186,7 @@ Route.get('/tags', (req, res, next) => {
                 }
             }
         },
-        {$sort: {'tags': 1}},
+        {$sort: {'count': -1}},
     ], (err, result) => {
         if (err) {
             return res.status(400).send({status: 400, message: 'Failed.', error: err})
