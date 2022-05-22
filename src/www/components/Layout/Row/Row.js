@@ -9,7 +9,7 @@ const Row = (props) => {
     props.classes && (cls = props.classes.split(' '))
     cls.forEach((ea) => classes.push(ea))
     return (
-        <div className={classes.join(' ')}>
+        <div id={props.id} className={classes.join(' ')}>
             {props.children}
         </div>
     )
@@ -17,7 +17,8 @@ const Row = (props) => {
 
 Row.propTypes = {
     classes: PropTypes.string,
-    columns: PropTypes.number
+    columns: PropTypes.number,
+    id: PropTypes.string
 }
 
 export default Row

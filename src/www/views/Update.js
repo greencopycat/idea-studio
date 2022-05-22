@@ -1,11 +1,10 @@
-import React, { useEffect, useReducer, useState, useRef } from 'react'
+import React, { useEffect, useReducer, useState } from 'react'
 import PropTypes from 'prop-types'
 import MS from './../services/microservices'
 import { DBHOST, ENDPOINT } from '../constant/constant'
 
 import Wrapper from './../components/Layout/Wrapper'
 import Panel from './../components/Layout/Panel'
-import Row from './../components/Layout/Row'
 import Table, { FIELDS } from './../components/atoms/Table'
 import Text from './../components/atoms/Text'
 import Field from './../components/atoms/Field'
@@ -90,9 +89,10 @@ const Update = (props) => {
                         setResponse,
                         setArr
                     }}
+                    classes={`mar-b25`}
                 />
                 {response.message ? 
-                    <div className={[`notifier`]}>
+                    <div className={[`notifier`, 'mar-b25']}>
                         <Notifier message={response.message} />
                     </div>
                 : null}

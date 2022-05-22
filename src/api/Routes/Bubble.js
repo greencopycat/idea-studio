@@ -76,6 +76,18 @@ Route.post('/add', (req, res, next) => {
     res.set('Access-Control-Allow-Origin', '*')
     if (req.body) {
         const data = req.body && req.body.data || []
+        let id = ''
+        let index = 0
+        data.forEach((ea, i) => {
+            let newId = (new Date().toJSON()).replace(/[\-T\:\.]/g, '').substring(0,14)
+            if (newId !== id) {
+                index = 0
+            } else {
+                index++
+            }
+            data[i]._id = newId + '-' + ('000' + index).slice(-3)
+            id = newId
+        })
         Bubbles.create(data, (err) => {
             if (err) {
                 console.log('[err] -> ', err)
@@ -119,7 +131,7 @@ Route.get('/setfree', (req, res, next) => {
     .sort(sortby)
     .exec( (err, result) => {
         if(err) {
-            return res.status(CODE_FAILED).send({status: CODE_FAILED, message: MSG_DBFAILED})
+            return res.status(CODE_FAILED).send({status: CODE_FAILED, message: MSG_DBFAILED, error: err})
         } else {
             return res.status(CODE_SUCCESS).send({status: CODE_SUCCESS, message: MSG_GET_SUCCESS, body: result})
         }
@@ -135,11 +147,12 @@ Route.post('/update', (req, res, next) => {
         delete obj._id
         const abc = Bubbles.findOneAndUpdate({_id: id}, obj, {new: true}).exec((err, result) => {
             if (err) {
-                console.log('[err] -> ', err)
+                return res.status(CODE_FAILED).send({status: CODE_FAILED, message: MSG_DBFAILED, error: err})
             } else 
             if (result) {
                 // console.log('[find] -> ', result)
                 // need to handle this
+            return res.status(CODE_SUCCESS).send({status: CODE_SUCCESS, message: MSG_GET_SUCCESS, body: result})
             }
         })
     }

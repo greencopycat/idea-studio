@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from 'react'
+import React, { useContext, useReducer, useRef } from 'react'
 import Panel from './../components/Layout/Panel'
 import Store from './../Context/Store'
 import Row from './../components/Layout/Row'
@@ -22,6 +22,7 @@ const Populate = (props) => {
             message: value.message 
         } : undefined
     }, null)
+    const isDirty = useRef(false)
     // use cms[lang] to toggle between different languages
     // console.log('[lang] -> lang -> ', store.lang, store.theme)
     const resetMessage = () => {
@@ -48,7 +49,13 @@ const Populate = (props) => {
                             accept={`.csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel, .numbers`}
                             callbacks={{
                                 onClick: ((evt) => {
-                                    resetMessage(null)
+                                    // resetMessage(null)
+                                }),
+                                onChange: ((evt) => {
+                                    if (evt.currentTarget.files.length) {
+                                        isDirty.current = true
+                                        resetMessage(null)
+                                    }
                                 })
                             }}
                         />
@@ -73,6 +80,7 @@ const Populate = (props) => {
                                     }
                                 })
                             }}
+                            disabled={!isDirty.current}
                         />
                     </div>
                 </Row>

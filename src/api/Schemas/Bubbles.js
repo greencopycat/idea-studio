@@ -5,7 +5,8 @@ const MAX_ATTACHMENT = '3'
 const Bubble = new mongoose.Schema({
     _id: {
         type: String,
-        required: true
+        required: true,
+        auto: true
     },
     author: {
         type: String,
