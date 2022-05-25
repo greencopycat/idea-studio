@@ -6,7 +6,7 @@
     padding: .5rem 1rem;
     border-width: thin;
     box-shadow: none;
-    border-color: var(--blue);
+    border-color: var(--blue-very-light);
 }
 
 .wrapper:after {

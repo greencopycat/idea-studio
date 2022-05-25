@@ -50,7 +50,7 @@
 }
 
 .menu:hover > :global(.active) {
-    color: var(--gray-very-light);
+    color: var(--gray);
     border-bottom-color: var(--gray-very-light);
     border-bottom-width: .1rem;
 }

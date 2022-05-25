@@ -23,6 +23,9 @@ const Button = (props) => {
         svgIcon = svgIcons.svgDelete
         title = 'Delete'
     }
+    if(props.theme === 'modal') {
+        classes.push(styles.modal) 
+    }
     return (
         <button title={title} className={classes.join(' ')} type={props.buttonType || 'button'} {...events} disabled={props.disabled}>{svgIcon}{props.text}</button>
     )
@@ -32,6 +35,7 @@ Button.propTypes = {
     disabled: PropTypes.bool,
     icon: PropTypes.oneOf(['mod', 'del']),
     onclick: PropTypes.func,
+    text: PropTypes.string,
     type: PropTypes.oneOf(['button', 'submit', 'reset', 'tag']),
 }
 

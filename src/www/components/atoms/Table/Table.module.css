@@ -18,8 +18,10 @@
     max-width: 15rem;
     min-width: 15rem;
     height: 100%;
+    font-weight: 500;
 }
-.wrapper td:not(:global([class^=pad-])) {
+.wrapper td:not(:global([class^=pad-])),
+.wrapper th:not(:global([class^=pad-])) {
     padding: .7rem;
 }
 .wrapper td:global(.pad-0) input {

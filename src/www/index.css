@@ -7,9 +7,23 @@ html {
 body {
   padding: 0;
   margin: 0;
-  font-size: 62.5%;
+  font-size: 1.2rem;
+  font-family: Helvetica, Verdana, sans-serif, Arial;
+  letter-spacing: .1rem;
 }
 
+input,
+textarea,
+select,
+option,
+td {
+  font-family: 'Courier New', Georgia, 'Times New Roman';
+}
+
+h1, h2, h3, h4, [role="heading"] {
+  font-family: 'Copperplate Gothic', 'Century Gothic', Cendara, Helvetica;
+  font-weight: 500;
+}
 * {
   box-sizing: border-box;
 }

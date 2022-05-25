@@ -17,7 +17,7 @@ const fields = [
     { name: 'tags', elem: 'tags', required: true }, 
     { name: 'description', elem: 'textbox'}, 
     { name: 'attachments'}, 
-    { name: 'url'}, 
+    { name: 'url', elem: 'inputbox', type: 'url'}, 
     { name: 'note', elem: 'textbox'} 
 ]
 
@@ -131,6 +131,7 @@ const Table = (props) => {
                 <tbody>
                     {tableContent.current}
                 </tbody>
+                {props.page !== 'addnew' ? <tfoot><tr><td colSpan={15}>{`${tableData.length} Record${tableData.length > 1 ? `s`: ``}`}</td></tr></tfoot> : null}
             </table>
             {!(tableContent.current && tableContent.current.length)? 
                 <Row>

@@ -9,7 +9,7 @@ const Missing = (props) => {
         <Wrapper>
             <Panel>
                 <Text elem={`heading`} level={1} value='404' />
-                <Text elem={`default`} value={`I think you are lost.`} />
+                <Text elem={`default`} value={`I think you are lost.`}  classes={`mar-b25`} />
             </Panel>
         </Wrapper>
     )

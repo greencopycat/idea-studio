@@ -85,7 +85,7 @@ const Populate = (props) => {
                     </div>
                 </Row>
                 { message ? 
-                    <Row classes={`${message.isError ? 'error' : ''}`}>
+                    <Row id={`notifier`} classes={`${message.isError ? 'error mar-b25' : 'mar-b25'}`}>
                         <Notifier {...message} />
                     </Row> : null 
                 }

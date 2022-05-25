@@ -10,7 +10,7 @@ import Field from './../components/atoms/Field'
 import Notifier from './../components/atoms/Notifier'
 
 import { FIELDS } from './../components/atoms/Table'
-import MS from '../services/microservices'
+import MS from './../services/microservices'
 import { ENDPOINT } from './../constant/constant'
 
 const AddNew = (props) => {
@@ -135,7 +135,7 @@ const AddNew = (props) => {
                     />
                 </Row>
                 {response.message ? 
-                    <Row classes={`${response.type === 'error' ? 'error' : ''}`}>
+                    <Row id={`notifier`} classes={`${response.type === 'error' ? 'error mar-b25' : 'mar-b25'}`}>
                         <Notifier type={response.type} message={response.message} />
                     </Row> : null
                 }

@@ -1,12 +1,26 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PropTypes from 'prop-types'
 
 import Overlay from './../Overlay'
+import Row from './../../Layout/Row'
+import Button from './../Button'
 
 import styles from './Modal.module.css'
 
 const Modal = (props) => {
     const classes = [styles.wrapper]
+
+    useEffect(() => {
+        if(window) {
+            window.addEventListener('keydown', (evt) => {
+                evt.preventDefault()
+                if (evt.key === 'Escape' || evt.keyCode === 27) {
+                    props.events.cancel()
+                }
+            }, { once: true })
+        }
+    }, [props])
+
     const content = (
         <>
             <h2>{props.heading}</h2>
@@ -19,8 +33,10 @@ const Modal = (props) => {
         <Overlay open={props.open}>
             <dialog className={classes.join(' ')} open={props.open}>
                 {content}
-                <button onClick={props.events.confirm}>Yes</button>
-                <button onClick={props.events.cancel}>No</button>
+                <Row>
+                    <Button onclick={props.events.confirm} text={`Yes`} theme={`modal`} />
+                    <Button onclick={props.events.cancel} text={`No`} theme={`modal`} />
+                </Row>
             </dialog>
         </Overlay>
     )

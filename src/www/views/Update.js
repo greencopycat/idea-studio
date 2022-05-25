@@ -5,6 +5,7 @@ import { DBHOST, ENDPOINT } from '../constant/constant'
 
 import Wrapper from './../components/Layout/Wrapper'
 import Panel from './../components/Layout/Panel'
+import Row from './../components/Layout/Row'
 import Table, { FIELDS } from './../components/atoms/Table'
 import Text from './../components/atoms/Text'
 import Field from './../components/atoms/Field'
@@ -48,7 +49,7 @@ const Update = (props) => {
             <Panel>
                 <Text elem={`heading`} level={1} value={`Update ideas`} />
                 <Text elem={`default`} classes={`mar-b25`} value={`Couldn't make up your mind?`} />
-                <div className={`inline-flex align-items-c`}>
+                <Row classes={`inline-flex align-items-c`}>
                     <Text 
                         classes={`inline-block mar-b10`}
                         elem={`label`} 
@@ -83,18 +84,19 @@ const Update = (props) => {
                             }
                         }}
                     />
-                </div>
-                <Table data={{ideas: arr}} page={`update`} 
-                    callbacks={{
-                        setResponse,
-                        setArr
-                    }}
-                    classes={`mar-b25`}
-                />
+                </Row>
+                <Row classes={`mar-b25`}>
+                    <Table data={{ideas: arr}} page={`update`} 
+                        callbacks={{
+                            setResponse,
+                            setArr
+                        }}
+                    />
+                </Row>
                 {response.message ? 
-                    <div className={[`notifier`, 'mar-b25']}>
+                    <Row id={`notifier`} classes={`notifier mar-b25`}>
                         <Notifier message={response.message} />
-                    </div>
+                    </Row>
                 : null}
             </Panel>
         </Wrapper>

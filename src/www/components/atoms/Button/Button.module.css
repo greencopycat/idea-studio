@@ -6,11 +6,14 @@
 }
 
 .wrapper:not(.icon) {
-    min-width: 15rem;
     padding: .5rem 1rem;
     color: var(--white);
     background-color: var(--menu-bg);
     border: thin solid var(--menu-bg);
+}
+
+.wrapper:not(.icon, .modal) {
+    min-width: 15rem;
 }
 
 .wrapper.icon {

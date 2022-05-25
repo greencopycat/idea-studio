@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 
 import Wrapper from './../components/Layout/Wrapper'
-import Panel from '../components/Layout/Panel'
+import Panel from './../components/Layout/Panel'
 import Text from './../components/atoms/Text'
 
 const Welcome = (props) => {

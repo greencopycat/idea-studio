@@ -1,7 +1,7 @@
 import React, { useEffect, useReducer } from 'react'
 import PropTypes from 'prop-types'
 import MS from './../services/microservices'
-import { DBHOST, ENDPOINT } from '../constant/constant'
+import { DBHOST, ENDPOINT } from './../constant/constant'
 
 import Wrapper from './../components/Layout/Wrapper'
 import Panel from './../components/Layout/Panel'
@@ -39,8 +39,8 @@ const View = (props) => {
         <Wrapper>
             <Panel>
                 <Text elem={`heading`} level={1} value={`View ideas`} />
-                <Text classes={`mar-b25`} elem={`default`} value={`What's on your mind?`} />
-                <div className={`inline-flex align-items-c`}>
+                <Text elem={`default`} classes={`mar-b25`} value={`What's on your mind?`} />
+                <Row classes={`inline-flex align-items-c`}>
                     <Text 
                         classes={`inline-block mar-b10`}
                         elem={`label`} 
@@ -75,8 +75,8 @@ const View = (props) => {
                             }
                         }}
                     />
-                </div>
-                <Row>
+                </Row>
+                <Row classes={`mar-b25`}>
                     <Table data={{ideas: ideas}} />
                 </Row>
             </Panel>

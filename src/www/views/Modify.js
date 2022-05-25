@@ -2,7 +2,7 @@ import React, { useEffect, useReducer, useRef } from 'react'
 import { useParams } from 'react-router-dom'
 import PropTypes from 'prop-types'
 import MS from './../services/microservices'
-import { DBHOST, ENDPOINT } from '../constant/constant'
+import { DBHOST, ENDPOINT } from './../constant/constant'
 
 import Wrapper from './../components/Layout/Wrapper'
 import Panel from './../components/Layout/Panel'
@@ -119,8 +119,9 @@ const Modify = (props) => {
                                 formField={true}
                                 input={val}
                                 name={f.name}
-                                type={f.name === 'attachments' ? 'file' : null} 
+                                type={f.name === 'attachments' ? 'file' : f.type} 
                                 callbacks={events}
+                                validate={true}
                                 />
                         </Row>
                     )
